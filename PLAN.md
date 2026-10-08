@@ -1,56 +1,84 @@
-# WINTERFORGE — v0.1 Foundation (Oct 16, 2026)
+# BUCKY.v1 — Production Hacking Engine (v0.14, Oct 9 2026)
 
-**Vision (operator's words):** custom super-efficient cybersecurity IDE —
-Windows main-machine + Kali VM integration solved, ALL campaign techniques
-built-in, user only pastes their AI API key, everything else pre-wired.
-"The Cursor of cybersecurity, built for Hermes."
+**Vision (operator's words):** duniya ka sabse best production hacking
+engine — Windows brain + Kali VM muscle, user only pastes their AI API
+key, everything else pre-wired. Self-learning + self-upgrading
+(benchmark-gated, Hermes-style). Revolutionary, paper-grade benchmarks,
+custom replacement techniques for every tool that fought us.
 
-## Architecture (engine ready — IDE-layer awaits operator details)
+## Architecture (LIVE — every piece below is machine-verified)
 
 ```
-┌────────────────────── Windows (brain) ──────────────────────┐
-│  cli.py (forge) ──► core/                                    │
-│    vmbridge  : SSH exec, boot/recover, sync, shadow-tmux lane │
-│    lanes     : browse (firefox+geckodriver), probe (curl)    │
-│    evidence  : SHA-seal MANIFEST pipeline (court-grade)      │
-│    ai        : single-key slot → any OpenAI-compatible LLM   │
-│  config.json : THE only user-input point (ai.api_key)         │
-└──────────────────────────┬───────────────────────────────────┘
-                       SSH :2222
-┌────────────────────── Kali VM (muscle) ─────────────────────┐
-│  tooling: nmap, curl, selenium+geckodriver+firefox, dns, ...  │
-│  shadow tmux = operator watches everything live              │
-└──────────────────────────────────────────────────────────────┘
+┌──────────────────── Windows (brain) ────────────────────────────┐
+│ cli.py (bucky) ──► core/                                          │
+│   vmbridge       SSH exec, boot/recover, sync, shadow-tmux        │
+│   lanes          browse (firefox+geckodriver), probe, msgcap       │
+│   lanes_security csp-verdict | pm-guard | js-secrets               │
+│   sanitizer_oracle  P80-class fall-through detector (PROD-VALID)  │
+│   lanes_recon    6-stage passive-first (ct/dns/probe/js/stale/tko)│
+│   lanes_burp     Burp community proxy-capture lane                │
+│   scopegate      host-side containment (agent never raw-shells)   │
+│   agent          3-tier loop: ReAct in / Reflexion outer          │
+│   llm_policy     enum-strict action parser, fail-soft, budget     │
+│   curriculum     deterministic decompose + Voyager admission      │
+│   skills         admission-gated skill library (>=2 benchmarks)   │
+│   registry       versioned pattern store (data-driven detection)  │
+│   learning       3-gate self-upgrade (compile/benchmark/value)    │
+│   learning_runs  transcript mining → lessons → confirmed upgrades │
+│   packer         report engine R1-R10 + rejection taxonomy       │
+│   evidence       SHA-seal MANIFEST (court-grade)                 │
+│   ai             single-key slot → any OpenAI-compatible LLM     │
+│   selftest       upgrade-gate (explicit modules, recursion-safe)  │
+│ config.json      THE only user-input point (ai.api_key)            │
+└──────────────────────────┬───────────────────────────────────────┘
+                     SSH :2222
+┌──────────────────── Kali VM (muscle) ────────────────────────────┐
+│ tooling: nmap, curl, selenium+geckodriver+firefox, dns,           │
+│ burpsuite (proxy lane, LIVE), lab_serve.py (persistent targets)   │
+│ shadow tmux = operator watches everything live                    │
+└───────────────────────────────────────────────────────────────────┘
 ```
 
-## Encoded hard-won lessons (from live campaign)
-- VM dead → tools die together → auto-boot + sshd-wait in vmbridge
-- zsh `=word=` expansion → underscore markers, never `===`
-- leftover test-servers → `port_free()` fuser-k hygiene
-- chromium-150 zygote-crash on this Kali → firefox+geckodriver is THE browser lane
-- `Service(executable_path="/usr/bin/geckodriver")` REQUIRED for selenium
-- evidence always SHA-sealed at creation, never after the fact
+## Modes
+- `bucky hunt "<objective>"` — deterministic-curriculum backbone (no key
+  needed): decompose → scope-vetted real lanes → verdicts → sealed run.
+  LLM key present = agentic accelerator layered on top.
+- 5 audit-classes live: CSP / postMessage / secrets / sanitizer / recon.
+- `bucky burp launch|status|get` — proxy-capture through Burp.
 
-## Verified (smoke-tested)
-- [ ] `forge vm status` / `vm boot`
-- [ ] `forge run "..."` / `--shadow`
-- [ ] `forge sync up|down`
-- [ ] `forge browse <url>`
-- [ ] `forge probe <url>`
-- [ ] `forge seal|verify`
-- [ ] `forge ask` (needs key)
+## Benchmarks (compulsory — delivered)
+- **unit**: 68 tests / 8 suites, ALL-GREEN
+- **paper-grade v2**: per-difficulty matrix (PentestGPT), dual-test
+  contract (SWE-bench), repeat-variance stdev (reliability), containment
+  blocked/leaked (HackSynth) — ALL-GREEN
+- **flagship e2e**: full chain (VM probe → classify → clean-twin gate →
+  seal → verify) vs live VM lab ×5 runs, stdev 0.0 — ALL-GREEN
+- **upgrade-gate**: 35 tests, recursion-guarded, fail-closed
 
-## OPEN-SLOTS — operator details will fill these
-1. **Form-factor**: TUI dashboard / localhost web-IDE / VSCode-style extension?
-2. **Scope**: bug-bounty pipeline (recon→hunt→evidence→report→submit-track)
-   vs general pentest suite vs both?
-3. **AI role**: advisory copilot vs full-auto agentic driver (runs lanes itself)?
-4. **First-class lanes to prioritize**: nmap-recon, JS-bundle static-mining,
-   subdomain/wayback sweeps, report-packer, bounty-submit tracker?
-5. **Hard-code campaign workflows** (base64-solver, evidence-zip packer,
-   multi-report tracker) as forge commands?
+## Self-learning (Hermes-style, compulsory — delivered)
+1. Pattern registry: versioned JSON; new detection shapes enter ONLY
+   through 3 gates (compile → full-suite → TP/FP value). Live-instance
+   sync; one-file rollback.
+2. Skill library: skills admitted only after >=2 benchmark passes
+   (Voyager −73% lesson).
+3. RunMiner: every hunt transcript mined for lessons; anchor-lessons
+   bridge to pattern proposals; operator confirms; gates re-check.
+
+## Production validation
+- sanitizer-oracle reproduces the real C178/P80 Paytm finding from the
+  sealed prod artifact alone (deterministic re-derivation invariant).
+- P79/P80/R7-amplifier findings from the live campaign motivated the
+  csp/pm/sanitizer lanes — 181 cycles of manual craft, now engine code.
+
+## Research base (37+ papers, 8 agents A–H)
+research/SYNTHESIS-{A..H} + MEGA-SYNTHESIS-ARCHITECTURE.md — every
+architecture decision above is paper-backed (ReAct/Reflexion/Voyager,
+SWE-bench ACI +10.7, Toolformer corpus, HackSynth containment, PentestGPT
+subtask scoring, state-actor tradecraft laws, capability economics).
 
 ## Next milestones
-- v0.2: operator's details → IDE layer + lane expansion
-- v0.3: agentic AI loop (key-driven, lane-orchestrating)
-- v1.0: one-shot campaign mode
+- v0.15: Agent-H full batch refine → benchmark paper-grade upgrades
+  (containment-attempt metric in flagship suite)
+- v0.16: report-packer → `bucky report` CLI (R1-R10 + submission packs)
+- v0.17: form-factor layer (operator's IDE details pending)
+- v1.0: one-shot campaign mode (recon→hunt→evidence→report→submit-track)

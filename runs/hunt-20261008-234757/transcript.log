@@ -1,0 +1,5 @@
+mode: deterministic-curriculum
+csp-audit-1 probe http://127.0.0.1:19077/ -> {"ok": true, "status_line": "HTTP-STATUS:200|SIZE:9|TIME:0.006431", "headers": "HTTP/1.0 200 OK\nServer: BaseHTTP/0.6 Python/3.13.14\nDate: Thu, 08 Oct 2026 18:17:58 GMT\nContent-Type: text/html; charset=utf-8\nContent-Security-Policy: script-src 'self' 'unsafe-inline' 'unsafe-ev
+csp-audit-2 vm_exec http://127.0.0.1:19077/ -> CSP verdict: B1 (B1: unsafe-inline/eval without nonce -> zero XSS mitigation)
+csp-audit-3 seal http://127.0.0.1:19077/ -> evidence-dir sealed: runs\hunt-20261008-234757
+FINISH: curriculum audit the CSP of http://127.0.0.1:19077/ (COMPLETE)

@@ -1,0 +1,5 @@
+mode: deterministic-curriculum
+csp-audit-1 probe http://127.0.0.1:19077/ -> scope-denied ('list' object has no attribute 'allows_host')
+csp-audit-2 vm_exec classify_csp(headers) -> scope-denied ('list' object has no attribute 'allows_host')
+csp-audit-3 seal runs/ -> scope-denied ('list' object has no attribute 'allows_host')
+FINISH: curriculum audit the CSP of http://127.0.0.1:19077/ (COMPLETE)

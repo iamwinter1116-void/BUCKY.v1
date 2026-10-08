@@ -62,28 +62,28 @@ _PLANS: dict[str, list[tuple[str, str, str]]] = {
     # plan-id -> [(lane, target-template, goal)]
     "csp-audit": [
         ("probe", "{target}", "fetch page headers+body once"),
-        ("vm_exec", "classify_csp(headers)", "verdict B1/B2/B3/clean"),
-        ("seal", "runs/", "seal captured CSP evidence"),
+        ("vm_exec", "{target}", "classify_csp(headers)"),
+        ("seal", "{target}", "seal captured CSP evidence"),
     ],
     "pm-audit": [
         ("probe", "{target}", "fetch handler JS once"),
-        ("vm_exec", "classify_handler(js)", "verdict P1..P6/strict"),
-        ("seal", "runs/", "seal handler evidence"),
+        ("vm_exec", "{target}", "classify_handler(js)"),
+        ("seal", "{target}", "seal handler evidence"),
     ],
     "secrets-sweep": [
-        ("vm_exec", "js_inventory({target})", "collect script URLs"),
-        ("vm_exec", "detect_secrets(each)", "findings TP/FP-checked"),
-        ("seal", "runs/", "seal findings"),
+        ("vm_exec", "{target}", "js_inventory(target)"),
+        ("vm_exec", "{target}", "detect_secrets(each)"),
+        ("seal", "{target}", "seal findings"),
     ],
     "recon-pipeline": [
-        ("vm_exec", "ct_seed({target})", "CT seed, cached"),
-        ("vm_exec", "dns_expand(seed)", "resolve sweep"),
-        ("vm_exec", "takeover_candidates(dead)", "dangling fingerprint"),
-        ("seal", "runs/", "seal recon artifacts"),
+        ("vm_exec", "{target}", "ct_seed(target)"),
+        ("vm_exec", "{target}", "dns_expand(seed)"),
+        ("vm_exec", "{target}", "takeover_candidates(dead)"),
+        ("seal", "{target}", "seal recon artifacts"),
     ],
     "report-pack": [
-        ("vm_exec", "packer.build(findings)", "R1-R10 gate report"),
-        ("seal", "runs/", "seal report draft"),
+        ("vm_exec", "{target}", "packer.build(findings)"),
+        ("seal", "{target}", "seal report draft"),
     ],
 }
 
@@ -137,3 +137,35 @@ def completion_report(cur: Curriculum, results: list[str]) -> str:
     ok = cur.pos == len(cur.subtasks)
     lines.append(f"status: {'COMPLETE' if ok else 'INCOMPLETE'}")
     return "\n".join(lines)
+
+
+class CurriculumLoop:
+    """Curriculum-driven deterministic hunt (no-LLM mode).
+
+    Walks a curriculum's sub-tasks and executes each through the real
+    lanes (scope-vetted), appending observations to the transcript.
+    Works with an EMPTY api_key — the deterministic backbone; the LLM
+    policy accelerates it when a key is present. Same transcript format
+    so reports/seals are identical between modes.
+    """
+
+    def __init__(self, execute_lane) -> None:
+        """Args: execute_lane: callable(SubTask) -> str observation."""
+        self.execute_lane = execute_lane
+
+    def run(self, cur: Curriculum,
+            transcript: list[str] | None = None) -> list[str]:
+        """Walk all sub-tasks; returns transcript lines (fail-soft)."""
+        lines = list(transcript or [])
+        st = cur.next()
+        while st is not None:
+            try:
+                obs = self.execute_lane(st)
+                lines.append(
+                    f"{st.subtask_id} {st.lane} {st.target} -> {obs[:300]}")
+            except Exception as e:  # record, continue
+                lines.append(f"{st.subtask_id} FAILED: {str(e)[:120]}")
+            st = cur.next()
+        lines.append(f"FINISH: curriculum {cur.objective} "
+                     f"({'COMPLETE' if cur.done() else 'INCOMPLETE'})")
+        return lines

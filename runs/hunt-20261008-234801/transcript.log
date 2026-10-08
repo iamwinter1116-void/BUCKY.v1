@@ -1,0 +1,5 @@
+mode: deterministic-curriculum
+secrets-sweep-1 vm_exec http://127.0.0.1:19077/vuln-bundle.js -> vm_exec goal: js_inventory(target) on http://127.0.0.1:19077/vuln-bundle.js
+secrets-sweep-2 vm_exec http://127.0.0.1:19077/vuln-bundle.js -> secrets: 3 findings (aws-access-key, azure-client-secret, jwt)
+secrets-sweep-3 seal http://127.0.0.1:19077/vuln-bundle.js -> evidence-dir sealed: runs\hunt-20261008-234801
+FINISH: curriculum sweep for leaked secrets http://127.0.0.1:19077/vuln-bundle.js (COMPLETE)

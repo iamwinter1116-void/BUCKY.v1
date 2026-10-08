@@ -28,7 +28,8 @@ class TestDecompose(unittest.TestCase):
     def test_recon_objective(self):
         cur = decompose("subdomain takeover recon", "example.com")
         self.assertEqual(len(cur.subtasks), 4)
-        self.assertEqual(cur.subtasks[0].goal, "CT seed, cached")
+        self.assertEqual(cur.subtasks[0].goal, "ct_seed(target)")
+        self.assertTrue(all(s.target == "example.com" for s in cur.subtasks))
 
     def test_secrets_objective(self):
         cur = decompose("sweep for leaked api keys", "https://x.example")

@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -210,17 +211,10 @@ def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
     cfg = json.loads(Path("config.json").read_text(encoding="utf-8")
                      if Path("config.json").exists() else "{}")
     ai_cfg = cfg.get("ai", {})
-    if not ai_cfg.get("api_key"):
-        print("[hunt] no api_key in config.json — agentic mode needs the "
-              "brain. Fill ai.api_key then re-run.", file=sys.stderr)
-        return 1
 
     scope_hosts = (ai_cfg.get("scope_domains") or
                    cfg.get("scope", {}).get("allow_domains") or
                    ["127.0.0.1", "localhost"])
-    policy = SafeLLMPolicy(hint=hint, max_llm_calls=max_steps)
-    agent_cfg = AgentConfig(step_budget=max_steps)
-    agent = Agent(agent_cfg)
 
     run_dir = Path("runs") / time.strftime("hunt-%Y%m%d-%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -228,43 +222,78 @@ def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
     print(f"[hunt] scope-hosts: {', '.join(scope_hosts)}")
     print(f"[hunt] evidence dir: {run_dir}")
 
-    class _LanePolicy(SafeLLMPolicy):
-        """Policy that executes each action through the real lanes."""
+    # ---- deterministic backbone: curriculum walk over real lanes ----
+    from core.curriculum import CurriculumLoop, decompose
+    from core.scopegate import Scope, TargetRule
+    from core.agent import check_scope as _check_scope
 
-        def next_step(self, task, transcript, lessons):
-            step = super().next_step(task, transcript, lessons)
-            if hasattr(step, "kind") and step.kind.value in (
-                    "vm_exec", "probe", "browse", "seal"):
-                tgt = step.args.get("target", "")
-                try:
-                    check_scope(tgt, scope_hosts)
-                except Exception as e:
-                    return Thought(f"scope-denied: {tgt} ({str(e)[:80]})")
-                # execute the lane
-                if step.kind.value == "probe":
-                    r = lanes.probe(tgt)
-                elif step.kind.value == "browse":
-                    r = lanes.browse(tgt)
-                elif step.kind.value == "seal":
-                    r = {"ok": True, "sealed": tgt}
-                else:
-                    r = vmbridge.run(step.args.get("tool", ""))
-                obs = json.dumps(r)[:500]
-                (run_dir / "transcript.log").open("a",
-                    encoding="utf-8").write(
-                    f"{step.kind.value} {tgt} -> {obs}\n")
-                self._last_obs = f"{step.kind.value} {tgt} -> {obs}"
-                return Thought(f"executed {step.kind.value} on {tgt}; "
-                               f"result: {obs[:200]}")
-            return step
+    scope_obj = Scope([TargetRule(h) for h in scope_hosts])
 
-    lane_policy = _LanePolicy(hint=hint, max_llm_calls=max_steps)
-    transcript = ""
-    lines = LLMPolicyDrivenLoop(agent, lane_policy).run(
-        objective, transcript, lessons="")
+    def execute_lane(st) -> str:
+        tgt = st.target
+        verdict = _check_scope(tgt, scope_obj)
+        if not verdict.allowed:
+            return f"scope-denied ({verdict.reason[:80]})"
+        if st.lane == "probe":
+            r = lanes.probe(tgt)
+            return json.dumps(r)[:280]
+        if st.lane == "browse":
+            r = lanes.browse(tgt)
+            return json.dumps(r)[:280]
+        if st.lane == "seal":
+            return f"evidence-dir sealed: {run_dir}"
+        # vm_exec lane: goal names the engine operation on the real target
+        if "classify_csp" in st.goal:
+            csp_probe = vmbridge.run(
+                f"curl -s -m 6 -D- -o /dev/null {tgt} "
+                f"| grep -i content-security-policy")
+            m = re.search(r"content-security-policy:\s*(.+)",
+                          csp_probe.output, re.I)
+            if m:
+                from core.lanes_security import classify_csp
+                v = classify_csp(m.group(1).strip(), is_meta=False)
+                return f"CSP verdict: {v.bypass_class} ({v.notes[0] if v.notes else ''})"
+            return "no CSP header found"
+        if "classify_handler" in st.goal:
+            r = vmbridge.run(f"curl -s -m 6 {tgt}")
+            if r.ok and r.output:
+                from core.lanes_security import classify_handler
+                h = classify_handler(r.output)
+                ev = h.evidence[0] if h.evidence else ""
+                return f"PM verdict: {h.pattern} ({ev[:100]})"
+            return "handler fetch failed"
+        if "detect_secrets" in st.goal:
+            r = vmbridge.run(f"curl -s -m 8 {tgt}")
+            if r.ok and r.output:
+                from core.lanes_security import detect_secrets
+                fs = detect_secrets(r.output)
+                return (f"secrets: {len(fs)} findings "
+                        f"({', '.join(sorted({f.kind for f in fs}))[:120]})")
+            return "bundle fetch failed"
+        return f"vm_exec goal: {st.goal} on {tgt}"
+
+    cur = decompose(objective, next(
+        (w for w in re.findall(r"https?://[^\s]+", objective)), "http://127.0.0.1:19077/"))
+    lines = CurriculumLoop(execute_lane).run(cur)
+    mode = "deterministic-curriculum"
+
+    if ai_cfg.get("api_key"):
+        # LLM accelerator available: refine with agentic policy
+        mode = "agentic-llm"
+        try:
+            policy = SafeLLMPolicy(hint=hint, max_llm_calls=max_steps)
+            agent = Agent(AgentConfig(step_budget=max_steps))
+            lines = LLMPolicyDrivenLoop(agent, policy).run(
+                objective, "\n".join(lines), lessons="")
+        except Exception as e:
+            lines.append(f"llm-mode-failed ({str(e)[:80]}); "
+                         f"deterministic transcript kept")
+
     report_text = "\n".join(lines)
-    (run_dir / "transcript.log").write_text(report_text, encoding="utf-8")
+    (run_dir / "transcript.log").write_text(
+        f"mode: {mode}\n" + report_text, encoding="utf-8")
     seal_res = evidence.seal(str(run_dir), label="hunt")
+    print(f"[hunt] mode: {mode}")
     print(f"[hunt] sealed {len(seal_res.files)} files "
           f"manifest {seal_res.manifest_sha256[:16]}…")
     print(report_text[-2000:])

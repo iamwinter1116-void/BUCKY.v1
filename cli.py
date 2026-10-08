@@ -84,6 +84,11 @@ def _build_parser() -> argparse.ArgumentParser:
                         help="operator one-line guidance (success multiplier)")
     p_hunt.add_argument("--max-steps", type=int, default=25)
 
+    p_burp = sub.add_parser(
+        "burp", help="Burp Suite proxy lane (launch/status/probe-through)")
+    p_burp.add_argument("action", choices=["launch", "status", "get"])
+    p_burp.add_argument("url", nargs="?", default="")
+
     return ap
 
 
@@ -165,6 +170,29 @@ def main(argv: list[str] | None = None) -> int:
     if a.cmd == "hunt":
         return cmd_hunt(" ".join(a.objective), hint=a.hint,
                         max_steps=a.max_steps)
+
+    if a.cmd == "burp":
+        from core import lanes_burp
+        if a.action == "launch":
+            cmd = lanes_burp.launch_burp(vmbridge.run)
+            print(f"[burp] launched: {cmd}")
+            print("[burp] wait ~60s for Java GUI init, then: bucky burp status")
+            return 0
+        if a.action == "status":
+            r = vmbridge.run(
+                "ss -tln | grep -q 8080 && echo LISTENING || echo DOWN")
+            print(f"[burp] proxy 8080: {r.output.strip()}")
+            return 0 if "LISTENING" in r.output else 1
+        if a.action == "get":
+            if not a.url:
+                print("usage: bucky burp get <url>", file=sys.stderr)
+                return 2
+            # route via Burp ON THE VM (proxy is VM-local)
+            r = vmbridge.run(
+                f"curl -s -m 8 -o /tmp/burp-get.html -w '%{{http_code}}' "
+                f"-x http://127.0.0.1:8080 {a.url}; echo; head -c 400 /tmp/burp-get.html")
+            print(r.output)
+            return 0 if r.ok else 1
 
     return 2
 

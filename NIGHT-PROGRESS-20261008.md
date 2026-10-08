@@ -30,7 +30,31 @@
     56 tests, full-engine coverage (stale-import cache caught by
     re-running in a fresh interpreter; count verified 56/0).
 
-## END-OF-NIGHT STATE (Oct 9, ~00:50 IST):
+## Night-cap additions (Oct 9, ~01:30):
+16. **v0.18.1 (fdc5361)**: js_inventory wired in secrets-sweep.
+17. **v0.19 (2a6329d)**: Agent-H FULL BATCH integrated — SYNTHESIS-H
+    complete (13 papers, exact metrics: SWE-bench 2,294/dual-test;
+    PentestGPT 182-subtasks; HBgpt human-75% baseline; Naptime pass@k;
+    Cve2PoC oracle 82.9%; JAW 516-sample/1-FP; CyberSecEval2 FRR<15%;
+    AgentHarm harm-82.2%/refusal-1.1%; Reflexion 1.4-16.3% self-test
+    error; 400-run bimodal Claude; Fang 87→7% description-cliff; CSP
+    94.72% base-rate). Implemented: two-sided scope corpus (FRR +
+    violation-rate pair, per-category), pass@k unbiased estimator,
+    anti-gaming guard. **PRODUCTION-SECURITY-FIX**: extract_hosts
+    colon-dot bypass — '127.0.0.1:19077.evil.tld' parsed as in-scope
+    '127.0.0.1' by urlsplit().hostname; now full-netloc with
+    valid-port-only strip → evil-tld twins DENIED. Found by the
+    Agent-H-recommended evil-twin test itself.
+    Engine state: 87 unit tests (10 suites), gate 56, paper + flagship
+    GREEN.
+
+## Agent-H positioning claim (literature-backed, sealed):
+No existing benchmark tests the ENGINE as a system — detection P/R +
+FP-rate + scope-gate FRR + deterministic seal/tamper integrity +
+recovery + report usability in ONE harness on ground-truthed local
+twins. Marker-protocol fuzz + seal round-trip suites: no direct
+precedent (Reflexion self-test error = the why; JAW token-injection =
+the methodological ancestor).
 - 26 commits, all pushed, private repo.
 - 76 unit tests (9 suites) + paper-grade + flagship e2e + gate(56).
 - Campaign loop COMPLETE in-engine: hunt (5 classes) → report (gates)

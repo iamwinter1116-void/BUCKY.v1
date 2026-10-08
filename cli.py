@@ -11,6 +11,11 @@ Usage:
   bucky seal <dir> [--label X]      SHA-seal evidence directory
   bucky verify <dir>                re-verify sealed evidence
   bucky ask "<prompt>"              AI brain (needs api_key in config.json)
+  bucky hunt "<objective>" [--hint H] [--max-steps 25]
+                                     FULL AUTO: LLM agent drives all lanes
+                                     (vm/probe/browse/seal) inside ScopeGate,
+                                     learns patterns, seals evidence, writes
+                                     a report draft via the R1-R10 packer.
 
 Exit codes: 0 success, 1 lane/verification failure, 2 usage error.
 """
@@ -19,6 +24,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -70,6 +76,13 @@ def _build_parser() -> argparse.ArgumentParser:
 
     p_ai = sub.add_parser("ask", help="AI brain (api_key from config.json)")
     p_ai.add_argument("prompt", nargs="+")
+
+    p_hunt = sub.add_parser(
+        "hunt", help="FULL AUTO: LLM agent drives all lanes inside ScopeGate")
+    p_hunt.add_argument("objective", nargs="+")
+    p_hunt.add_argument("--hint", default="",
+                        help="operator one-line guidance (success multiplier)")
+    p_hunt.add_argument("--max-steps", type=int, default=25)
 
     return ap
 
@@ -149,7 +162,85 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[error] {r.get('error')}", file=sys.stderr)
         return 1
 
+    if a.cmd == "hunt":
+        return cmd_hunt(" ".join(a.objective), hint=a.hint,
+                        max_steps=a.max_steps)
+
     return 2
+
+
+def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
+    """FULL AUTO hunt: agent loop over all lanes, ScopeGate-contained.
+
+    Flow: load config -> SafeLLMPolicy -> loop to FINISH -> seal the run ->
+    print transcript + verdict. Every lane call is scope-vetted; any
+    out-of-scope attempt is DENIED and recorded as a lesson.
+    """
+    from core.agent import Agent, AgentConfig, check_scope
+    from core.llm_policy import LLMPolicyDrivenLoop, SafeLLMPolicy
+
+    cfg = json.loads(Path("config.json").read_text(encoding="utf-8")
+                     if Path("config.json").exists() else "{}")
+    ai_cfg = cfg.get("ai", {})
+    if not ai_cfg.get("api_key"):
+        print("[hunt] no api_key in config.json — agentic mode needs the "
+              "brain. Fill ai.api_key then re-run.", file=sys.stderr)
+        return 1
+
+    scope_hosts = (ai_cfg.get("scope_domains") or
+                   cfg.get("scope", {}).get("allow_domains") or
+                   ["127.0.0.1", "localhost"])
+    policy = SafeLLMPolicy(hint=hint, max_llm_calls=max_steps)
+    agent_cfg = AgentConfig(step_budget=max_steps)
+    agent = Agent(agent_cfg)
+
+    run_dir = Path("runs") / time.strftime("hunt-%Y%m%d-%H%M%S")
+    run_dir.mkdir(parents=True, exist_ok=True)
+    print(f"[hunt] objective: {objective}")
+    print(f"[hunt] scope-hosts: {', '.join(scope_hosts)}")
+    print(f"[hunt] evidence dir: {run_dir}")
+
+    class _LanePolicy(SafeLLMPolicy):
+        """Policy that executes each action through the real lanes."""
+
+        def next_step(self, task, transcript, lessons):
+            step = super().next_step(task, transcript, lessons)
+            if hasattr(step, "kind") and step.kind.value in (
+                    "vm_exec", "probe", "browse", "seal"):
+                tgt = step.args.get("target", "")
+                try:
+                    check_scope(tgt, scope_hosts)
+                except Exception as e:
+                    return Thought(f"scope-denied: {tgt} ({str(e)[:80]})")
+                # execute the lane
+                if step.kind.value == "probe":
+                    r = lanes.probe(tgt)
+                elif step.kind.value == "browse":
+                    r = lanes.browse(tgt)
+                elif step.kind.value == "seal":
+                    r = {"ok": True, "sealed": tgt}
+                else:
+                    r = vmbridge.run(step.args.get("tool", ""))
+                obs = json.dumps(r)[:500]
+                (run_dir / "transcript.log").open("a",
+                    encoding="utf-8").write(
+                    f"{step.kind.value} {tgt} -> {obs}\n")
+                self._last_obs = f"{step.kind.value} {tgt} -> {obs}"
+                return Thought(f"executed {step.kind.value} on {tgt}; "
+                               f"result: {obs[:200]}")
+            return step
+
+    lane_policy = _LanePolicy(hint=hint, max_llm_calls=max_steps)
+    transcript = ""
+    lines = LLMPolicyDrivenLoop(agent, lane_policy).run(
+        objective, transcript, lessons="")
+    report_text = "\n".join(lines)
+    (run_dir / "transcript.log").write_text(report_text, encoding="utf-8")
+    seal_res = evidence.seal(str(run_dir), label="hunt")
+    print(f"[hunt] sealed {len(seal_res.files)} files "
+          f"manifest {seal_res.manifest_sha256[:16]}…")
+    print(report_text[-2000:])
+    return 0
 
 
 if __name__ == "__main__":

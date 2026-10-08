@@ -3,7 +3,8 @@
 **Winter Soldier ka cyber-ops cockpit.** Windows brain + Kali muscle, one API
 key, everything else pre-wired. Built from 181 live operational cycles of a
 real bug-bounty campaign — every lane and every quirk encoded here was
-learned the hard way, in production.
+learned the hard way, in production. Self-learning and self-upgrading:
+every new pattern passes a 3-gate benchmark before the engine adopts it.
 
 > "The Cursor of cybersecurity — but for Hermes, and for me."
 

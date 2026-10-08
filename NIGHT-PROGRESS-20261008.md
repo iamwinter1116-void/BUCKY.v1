@@ -1,7 +1,25 @@
 # BUCKY NIGHT-PROGRESS — Oct 8→9 2026 (self-learning arc)
 # Standing order: continue till user-stop; quality uncompromising.
 
-## SHIPPED TONIGHT (v0.3 → v0.6, 4 pushes):
+## SHIPPED TONIGHT (v0.3 → v0.10, 10 pushes):
+5. **v0.7 (1c9633d)**: recon-pipeline lanes — 6-stage passive-first
+   (ct_seed cache-offline, dns_expand, http_probe single-GET,
+   js_inventory, stale_check, takeover_candidates WITHOUT claim-action).
+   Live bug caught by test: wildcard-cert entries falsely derived the
+   apex domain (`lstrip("*.")` trap) — fixed (skip wildcards entirely).
+6. **v0.8 (2ad1220)**: Burp proxy lane — HONEST capability check first:
+   Kali burpsuite 2026.7.2 has NO REST API (Pro-only) → rewrote the
+   fabricated REST design to community-truth: proxy-capture lane.
+   Launched on VM (java pid 43448, LISTEN 127.0.0.1:8080),
+   `bucky burp launch|status|get` CLI, request-via-Burp 200 verified.
+   ss-grep quirk: `[::ffff:127.0.0.1]:8080` format → grep 8080.
+7. **v0.9 (0119d51)**: curriculum (Voyager tier-3) — deterministic
+   objective→plan decomposition (csp/pm/secrets/recon/report plans),
+   admission gate wraps library.admit (≥2 benchmark results),
+   API-alignment bug caught (skills has admit() not find()).
+8. **v0.10 (ada56b2)**: FLAGSHIP e2e benchmark — full hunt chain vs
+   live VM lab, 5 runs, stdev 0.0, ALL-GREEN. This is the
+   production-engine proof.
 1. **v0.3 (baeab5a)**: SELF-LEARNING + SELF-UPGRADE — `core/registry.py`
    (data-driven pattern store, versioned JSON, immutable upgrades),
    `core/learning.py` (3-gate upgrade: compile → benchmark → value),

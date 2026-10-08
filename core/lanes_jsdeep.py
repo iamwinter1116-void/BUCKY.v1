@@ -87,6 +87,11 @@ def mine_bundle(bundle_text: str, *, max_findings: int = 200
             kind, preview[:80].replace("\n", " "), _redact(value),
             _line_of(bundle_text, offset), offset))
 
+    # 0. Jack-in-the-box stage-0: accessible source map = free reversal
+    m = re.search(r"sourceMappingURL\s*=\s*(\S+)", bundle_text)
+    if m:
+        add("sourcemap-reference", m.group(1)[:100], m.start())
+
     # 1. SaaS tenant hosts (+ pair detection pass below)
     saas_hosts: list[tuple[str, int, str]] = []
     for m in _SAAS_HOST.finditer(bundle_text):

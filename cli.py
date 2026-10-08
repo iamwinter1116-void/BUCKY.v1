@@ -123,6 +123,12 @@ def _build_parser() -> argparse.ArgumentParser:
     p_ars.add_argument("verb", nargs="?", default="")
     p_ars.add_argument("target", nargs="?", default="")
 
+    p_dl = sub.add_parser("deeplinks",
+                          help="harvest scheme links + collision/taint")
+    p_dl.add_argument("url_or_file")
+    p_dl.add_argument("--owned", default="",
+                      help="comma-separated owned hosts")
+
     return ap
 
 
@@ -384,6 +390,39 @@ def main(argv: list[str] | None = None) -> int:
                 for line in res.output.splitlines()[:15]:
                     print(f"  | {line[:120]}")
             return 0 if res.ok else 1
+
+    if a.cmd == "deeplinks":
+        from core.lanes_deeplink import (collision_table, harvest_deeplinks,
+                                         hijack_flags, taint_params)
+        p = Path(a.url_or_file)
+        if p.exists():
+            text = p.read_text(encoding="utf-8", errors="replace")
+            label = str(p)
+        else:
+            r = vmbridge.run(f"curl -s -m 15 {a.url_or_file}")
+            if not (r.ok and r.output):
+                print(f"[deeplinks] cannot read {a.url_or_file}",
+                      file=sys.stderr)
+                return 1
+            text = r.output
+            label = a.url_or_file
+        links = harvest_deeplinks(text)
+        custom = [l for l in links if l.is_custom]
+        print(f"[deeplinks] {label}: {len(links)} links "
+              f"({len(custom)} custom-scheme)")
+        table = collision_table(links)
+        for sch, claimants in sorted(table.items()):
+            mark = "*" if sch not in ("http", "https") else " "
+            print(f"  {mark} {sch}: {', '.join(claimants[:6])}")
+        owned = {h.strip() for h in a.owned.split(",") if h.strip()}
+        for f in hijack_flags(table, owned_hosts=owned):
+            print(f"  [HIJACK-RISK] {f.scheme}: {f.detail}")
+        tp = taint_params(links)
+        if tp:
+            print(f"  [taint-sources] {len(tp)} links with params:")
+            for url, params in list(tp.items())[:6]:
+                print(f"    {url} <- {', '.join(params[:8])}")
+        return 0
 
     return 2
 

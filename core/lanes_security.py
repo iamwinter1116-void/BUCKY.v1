@@ -99,6 +99,12 @@ def classify_handler(source: str) -> PmVerdict:
 
     if not has_origin_token:
         return PmVerdict("P1", ("no event.origin reference anywhere"))
+    # Agent-I upgrade: documented weak-check shapes (NDSS'13 Table-2
+    # class) — name the exact attacker-passable pattern in evidence
+    from core.weakchecks import classify_handler as _wc
+    wc = _wc(src)
+    if wc.weak:
+        return PmVerdict("P2", (f"weak origin check: {wc.pattern}",))
     if null_check:
         return PmVerdict("P3", ("null-origin parity accepted"))
     if lax:

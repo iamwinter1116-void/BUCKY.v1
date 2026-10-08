@@ -53,6 +53,7 @@ _OBJECTIVE_RULES: tuple[tuple[str, str], ...] = (
     # (objective-regex, lane-plan id)
     (r"csp|content[- ]security", "csp-audit"),
     (r"postmessage|message[- ]?handler|pm[- ]?audit", "pm-audit"),
+    (r"sanitizer|fall[- ]?through|xss[- ]?sanit", "sanitizer-audit"),
     (r"secret|api[- ]?key|credential|token", "secrets-sweep"),
     (r"recon|subdomain|takeover|dangling", "recon-pipeline"),
     (r"report|write[- ]up", "report-pack"),
@@ -74,6 +75,11 @@ _PLANS: dict[str, list[tuple[str, str, str]]] = {
         ("vm_exec", "{target}", "js_inventory(target)"),
         ("vm_exec", "{target}", "detect_secrets(each)"),
         ("seal", "{target}", "seal findings"),
+    ],
+    "sanitizer-audit": [
+        ("probe", "{target}", "fetch bundle once"),
+        ("vm_exec", "{target}", "analyze_sanitizer(bundle)"),
+        ("seal", "{target}", "seal sanitizer evidence"),
     ],
     "recon-pipeline": [
         ("vm_exec", "{target}", "ct_seed(target)"),

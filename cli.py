@@ -270,6 +270,31 @@ def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
                 return (f"secrets: {len(fs)} findings "
                         f"({', '.join(sorted({f.kind for f in fs}))[:120]})")
             return "bundle fetch failed"
+        if "analyze_sanitizer" in st.goal:
+            r = vmbridge.run(f"curl -s -m 8 {tgt}")
+            if r.ok and r.output:
+                from core.sanitizer_oracle import analyze_sanitizer
+                v = analyze_sanitizer(r.output)
+                return (f"sanitizer verdict: {v.verdict} "
+                        f"(signals: {', '.join(v.signals)})")
+            return "bundle fetch failed"
+        if "ct_seed" in st.goal:
+            from core.lanes_recon import ct_seed
+            domain = re.sub(r"^https?://", "", tgt).split("/")[0].split(":")[0]
+            hosts = ct_seed(domain, cache_dir=run_dir)
+            return f"ct_seed: {len(hosts)} hosts ({', '.join(hosts[:5])}…)"
+        if "dns_expand" in st.goal:
+            from core.lanes_recon import dns_expand
+            domain = re.sub(r"^https?://", "", tgt).split("/")[0].split(":")[0]
+            facts = dns_expand([domain])
+            return (f"dns: resolves={facts[0].resolves} ip={facts[0].ip}"
+                    if facts else "dns: no facts")
+        if "takeover_candidates" in st.goal:
+            from core.lanes_recon import dns_expand, takeover_candidates
+            domain = re.sub(r"^https?://", "", tgt).split("/")[0].split(":")[0]
+            cands = takeover_candidates(dns_expand([domain]))
+            return (f"takeover: {len(cands)} candidates" +
+                    (f" ({cands[0].provider})" if cands else ""))
         return f"vm_exec goal: {st.goal} on {tgt}"
 
     cur = decompose(objective, next(

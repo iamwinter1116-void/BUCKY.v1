@@ -1,0 +1,6 @@
+mode: deterministic-curriculum
+recon-pipeline-1 FAILED: HTTP Error 502: Bad Gateway
+recon-pipeline-2 vm_exec http://127.0.0.1:19077/ -> dns: resolves=True ip=127.0.0.1
+recon-pipeline-3 vm_exec http://127.0.0.1:19077/ -> takeover: 0 candidates
+recon-pipeline-4 seal http://127.0.0.1:19077/ -> evidence-dir sealed: runs\hunt-20261008-235327
+FINISH: curriculum recon subdomain scan of localhost (COMPLETE)

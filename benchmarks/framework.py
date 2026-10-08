@@ -35,6 +35,7 @@ class BenchTask:
     fail_to_pass: Callable[[], tuple[bool, str]]
     pass_to_pass: list[Callable[[], tuple[bool, str]]] = field(default_factory=list)
     containment: Callable[[], tuple[bool, str]] | None = None  # True = refused
+    hint: str = ""   # task-card flaw-class hint ("" = zero-hint mode)
 
 
 @dataclass(frozen=True)
@@ -200,6 +201,32 @@ def pass_at_k(results: list[bool]) -> dict[int, float]:
         else:
             out[k] = round(1.0 - math.comb(n - s, k) / math.comb(n, k), 3)
     return out
+
+
+def hint_axis(tasks: list[BenchTask], repeats: int = 1) -> dict:
+    """Fang et al. hints/zero-hints axis (87%->7% cliff for LLM agents).
+
+    Runs each task in BOTH modes and reports the completion-rate pair.
+    For BUCKY's deterministic backbone the delta MUST be 0.0 —
+    hint-independence is a structural property we can prove, unlike
+    LLM agents whose scores collapse without hints.
+
+    Returns:
+        {"with_hints": rate, "zero_hints": rate, "cliff": delta}
+    """
+    def _rate(tasks_in: list[BenchTask]) -> float:
+        results = []
+        for t in tasks_in:
+            for r in run_task(t, repeats=repeats):
+                results.append(r.f2p_ok and r.p2p_ok)
+        return round(sum(results) / len(results), 3) if results else 0.0
+
+    with_h = _rate(tasks)
+    zero_h = _rate([BenchTask(t.task_id, t.difficulty, t.fail_to_pass,
+                              t.pass_to_pass, t.containment, "")
+                    for t in tasks])
+    return {"with_hints": with_h, "zero_hints": zero_h,
+            "cliff": round(with_h - zero_h, 3)}
 
 
 def anti_gaming_guard(engine_fn, gold_answer, task_input) -> bool:

@@ -32,6 +32,44 @@ browsers, evidence) is friction. BUCKY wires it all into one cockpit:
 - **AI slot** — paste any OpenAI-compatible `api_key` into `config.json`
   and `bucky ask` becomes your analysis brain. No key is ever logged.
 
+## The engine (v0.16 — all machine-verified)
+
+**Hunt** (`bucky hunt "<objective>"`) — the full campaign loop, no key
+required (deterministic-curriculum backbone; the LLM accelerates when a
+key is present):
+
+```
+decompose(objective) → scope-vetted real lanes → verdicts → sealed run
+→ report (R1-R10 gates) → track (SLA watch)
+```
+
+Five audit-classes live: **CSP** (B1/B2/clean, meta-CSP spec-quirks),
+**postMessage** (P1–P6 origin-check taxonomy), **secrets**
+(anchored+entropy, redacted-first), **sanitizer-oracle** (P80-class
+fall-through — PRODUCTION-VALIDATED against a real artifact), and
+**recon** (CT-seed → DNS → probe → JS-inventory → takeover candidates).
+
+**Self-learning** — three surfaces, one rule (nothing self-modifies
+without proof):
+1. Pattern registry upgrades pass 3 gates (compile → full-suite → TP/FP).
+2. Skills enter the library only after ≥2 benchmark passes (Voyager).
+3. Every run's transcript is mined into lessons; anchor-lessons become
+   operator-confirmed upgrade proposals.
+
+**Benchmarks (compulsory)** — 76 unit tests (9 suites), paper-grade v2
+framework (per-difficulty matrix, SWE-bench dual-test contract,
+repeat-run variance, HackSynth containment), flagship e2e (full chain vs
+the live VM lab, 5 runs, stdev 0.0), and a recursion-guarded upgrade
+gate. All green, always, before anything ships.
+
+**Burp lane** — `bucky burp launch|status|get`: requests route through
+Burp's proxy on the VM (community edition, honestly integrated — no
+fabricated REST APIs).
+
+**Report + tracker** — `bucky report` refuses sub-MAX-GRADE drafts
+(per-step `Expected:` oracles, rejection-taxonomy pre-flight);
+`bucky track` watches submission SLAs and flags overdue reports.
+
 ## Quick start
 
 ```bash

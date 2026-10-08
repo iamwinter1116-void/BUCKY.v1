@@ -23,7 +23,7 @@ class TestDecompose(unittest.TestCase):
     def test_pm_objective(self):
         cur = decompose("postMessage handler audit", "https://x.example")
         lanes = [s.lane for s in cur.subtasks]
-        self.assertEqual(lanes, ["probe", "vm_exec", "seal"])
+        self.assertEqual(lanes, ["probe", "vm_exec", "browse", "seal"])
 
     def test_recon_objective(self):
         cur = decompose("subdomain takeover recon", "example.com")

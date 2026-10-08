@@ -347,6 +347,16 @@ def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
             r = lanes.probe(tgt)
             return json.dumps(r)[:280]
         if st.lane == "browse":
+            if "msg_capture" in st.goal:
+                r = lanes.msg_capture(tgt, wait_s=20)
+                msgs = r.get("messages", [])
+                beacons = [m for m in msgs
+                           if m.get("origin") and m.get("origin") != "null"]
+                return (f"msgcap: {len(msgs)} messages, "
+                        f"{len(beacons)} cross-origin beacons "
+                        + (f"(first: {beacons[0].get('origin','?')}"
+                           f" type={beacons[0].get('type','?')})"
+                           if beacons else "(silent embed)"))
             r = lanes.browse(tgt)
             return json.dumps(r)[:280]
         if st.lane == "seal":

@@ -69,6 +69,7 @@ _PLANS: dict[str, list[tuple[str, str, str]]] = {
     "pm-audit": [
         ("probe", "{target}", "fetch handler JS once"),
         ("vm_exec", "{target}", "classify_handler(js)"),
+        ("browse", "{target}", "msg_capture(target) runtime beacon"),
         ("seal", "{target}", "seal handler evidence"),
     ],
     "secrets-sweep": [

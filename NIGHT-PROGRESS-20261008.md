@@ -1,7 +1,26 @@
 # BUCKY NIGHT-PROGRESS — Oct 8→9 2026 (self-learning arc)
 # Standing order: continue till user-stop; quality uncompromising.
 
-## SHIPPED TONIGHT (v0.3 → v0.10, 10 pushes):
+## SHIPPED TONIGHT (v0.3 → v0.12, 12 pushes):
+9. **v0.11 (0c2a2d2)**: `bucky hunt` LIVE — deterministic-curriculum
+   mode (no-key backbone): decompose → scope-vetted real lanes →
+   verdicts (CSP B1, PM P1, secrets 3-kind) → sealed run-dir. LLM =
+   optional accelerator on top. 3 objectives live-verified. Plan
+   templates fixed (pseudo-targets → real URLs); PmVerdict.evidence
+   API-align; scope-list→Scope-object bug caught by the run itself.
+10. **v0.12 (3db7fc2)**: sanitizer-oracle — the P80-class fall-through
+    detector, PRODUCTION-VALIDATED: the engine reproduces the C178
+    finding from the sealed care-prod-main.js artifact alone
+    (parse-sink + protocol-allowlist + else-create-attrs, no tag-gate).
+    5/5 tests incl. the prod-validation gate.
+
+## FULL-ENGINE STATE (end of night):
+- 61 unit tests green (7 suites) + paper-grade v2 suite + flagship e2e
+  (5-run variance stdev 0.0) — every suite individually AND via the
+  upgrade-gate.
+- Detector count: csp-verdict, pm-guard, js-secrets, sanitizer-oracle
+  (prod-validated), recon-6-stage, Burp proxy lane.
+- Modes: deterministic-curriculum (no key) + agentic-llm (key).
 5. **v0.7 (1c9633d)**: recon-pipeline lanes — 6-stage passive-first
    (ct_seed cache-offline, dns_expand, http_probe single-GET,
    js_inventory, stale_check, takeover_candidates WITHOUT claim-action).

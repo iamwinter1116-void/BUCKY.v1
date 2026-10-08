@@ -1,0 +1,11 @@
+{
+  "label": "bench-e2e",
+  "sealed_at": "2026-10-08T18:21:40.469217+00:00",
+  "files": [
+    {
+      "file": "probe.log",
+      "sha256": "a88148e5d9f7431fde43e5a32df62b33ba68c5a08382d86b10b1053e95413915",
+      "bytes": 169
+    }
+  ]
+}

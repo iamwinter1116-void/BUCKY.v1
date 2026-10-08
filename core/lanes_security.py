@@ -159,23 +159,31 @@ _PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 )
 
 
-def detect_secrets(bundle_text: str, *, min_entropy: float = 3.5) -> list[SecretFinding]:
+def detect_secrets(bundle_text: str, *, min_entropy: float = 3.5,
+                   patterns: list[tuple[str, "re.Pattern[str]", float]] | None = None) -> list[SecretFinding]:
     """Anchored + entropy-gated secret detection over bundle text.
+
+    Args:
+        bundle_text: the JS bundle / page source to scan.
+        min_entropy: default Shannon-entropy floor for generic anchors.
+        patterns: override pattern list (id, compiled-regex, min-entropy);
+            defaults to the hardcoded base set. The registry-driven caller
+            passes PatternRegistry.secret_patterns() here so learned
+            patterns participate automatically.
 
     Security: NEVER makes an outbound call to verify a credential (invariant
     from the recon-pipeline research). Values are redacted in findings; the
     raw bundle is expected to be sealed separately by the caller.
     """
     out: list[SecretFinding] = []
-    for kind, pat in _PATTERNS:
+    if patterns is None:
+        patterns = [(k, p, min_entropy) for k, p in _PATTERNS]
+    for kind, pat, ent_floor in patterns:
         for m in pat.finditer(bundle_text):
             val = m.group(1)
-            out.append(SecretFinding(kind, m.group(0)[:40], _redact(val),
-                                    round(_shannon(val), 2), m.start()))
-    for m in _GENERIC.finditer(bundle_text):
-        val = m.group(1)
-        ent = _shannon(val)
-        if ent >= min_entropy:
-            out.append(SecretFinding("generic-key", m.group(0)[:40],
+            ent = _shannon(val)
+            if ent < ent_floor:
+                continue
+            out.append(SecretFinding(kind, m.group(0)[:40],
                                      _redact(val), round(ent, 2), m.start()))
     return out

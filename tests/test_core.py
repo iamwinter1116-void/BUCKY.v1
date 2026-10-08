@@ -12,7 +12,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from core.config import ConfigError, load_config  # noqa: E402
 from core import evidence  # noqa: E402

@@ -1,0 +1,39 @@
+{
+  "version": 3,
+  "csp_b1_triggers": [
+    "unsafe-inline",
+    "unsafe-eval"
+  ],
+  "secret_patterns": [
+    {
+      "id": "azure-client-secret",
+      "kind": "azure-client-secret",
+      "regex": "(?:client[_-]?secret|ClientSecret)[\"']?\\s*[:=]\\s*[\"']([A-Za-z0-9~._-]{30,40})[\"']",
+      "min_entropy": 3.5
+    },
+    {
+      "id": "aws-access-key",
+      "kind": "aws-access-key",
+      "regex": "\\b(AKIA[0-9A-Z]{16})\\b",
+      "min_entropy": 3.5
+    },
+    {
+      "id": "google-api-key",
+      "kind": "google-api-key",
+      "regex": "\\b(AIza[0-9A-Za-z_-]{35})\\b",
+      "min_entropy": 3.5
+    },
+    {
+      "id": "jwt",
+      "kind": "jwt",
+      "regex": "\\b(eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{5,})\\b",
+      "min_entropy": 3.5
+    },
+    {
+      "id": "generic-key",
+      "kind": "generic-key",
+      "regex": "[\"']?(?:api[_-]?key|apikey|secret|token|password|passwd|pwd)[\"']?\\s*[:=]\\s*[\"']([A-Za-z0-9+/_=-]{24,64})[\"']",
+      "min_entropy": 3.5
+    }
+  ]
+}

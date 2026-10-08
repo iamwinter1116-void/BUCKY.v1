@@ -18,7 +18,25 @@
     3-gate upgrades. 7 tests. Regex charclass bug caught (`_` missing
     → G3-fail — the gate did its job).
 
-## FINAL NIGHT-VALIDATION (5 pillars, machine-verified):
+13. **v0.15 (42382a3)**: `bucky report` — R1-R10 gates enforce
+    MAX-GRADE on the CLI (bad report BLOCKED live; Expected:-oracle
+    auto-mapping; PackResult.rendered field-fix). Campaign loop:
+    hunt → verdicts → report → seal.
+14. **v0.16 (5059c61)**: `bucky track` — submission/SLA tracker
+    (add/status/followup/overdue/summary), atomic JSON writes,
+    corrupt-safe load. Campaign loop CLOSED end-to-end. cmd_hunt
+    def-line restore (patch-merge slip caught by live-run).
+15. **v0.17 (266c413)**: upgrade-gate expanded — 6 explicit modules,
+    56 tests, full-engine coverage (stale-import cache caught by
+    re-running in a fresh interpreter; count verified 56/0).
+
+## END-OF-NIGHT STATE (Oct 9, ~00:50 IST):
+- 26 commits, all pushed, private repo.
+- 76 unit tests (9 suites) + paper-grade + flagship e2e + gate(56).
+- Campaign loop COMPLETE in-engine: hunt (5 classes) → report (gates)
+  → seal → track (SLA).
+- Self-learning: registry 3-gates + skill admission + RunMiner.
+- PROD-VALIDATED detector (sanitizer-oracle vs real Paytm artifact).
 1. unit-suites: 68 GREEN (8 suites)
 2. paper-grade benchmark v2: GREEN
 3. upgrade-gate: 35 GREEN

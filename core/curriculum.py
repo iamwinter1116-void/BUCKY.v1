@@ -55,6 +55,11 @@ _OBJECTIVE_RULES: tuple[tuple[str, str], ...] = (
     (r"postmessage|message[- ]?handler|pm[- ]?audit", "pm-audit"),
     (r"sanitizer|fall[- ]?through|xss[- ]?sanit", "sanitizer-audit"),
     (r"secret|api[- ]?key|credential|token", "secrets-sweep"),
+    (r"mine|bundle|tenant|deeplink|webpack", "bundle-mine"),
+    (r"arsenal[- ]recon|subdomain[- ]hunt|passive[- ]enum", "arsenal-recon"),
+    (r"arsenal[- ]probe|fingerprint|waf[- ]detect", "arsenal-probe"),
+    (r"arsenal[- ]content|dir\s?brute|directory[- ]find", "arsenal-content"),
+    (r"arsenal[- ]vuln|nikto|nuclei|vuln[- ]scan", "arsenal-vuln"),
     (r"recon|subdomain|takeover|dangling", "recon-pipeline"),
     (r"report|write[- ]up", "report-pack"),
 )
@@ -81,6 +86,32 @@ _PLANS: dict[str, list[tuple[str, str, str]]] = {
         ("probe", "{target}", "fetch bundle once"),
         ("vm_exec", "{target}", "analyze_sanitizer(bundle)"),
         ("seal", "{target}", "seal sanitizer evidence"),
+    ],
+    "bundle-mine": [
+        ("vm_exec", "{target}", "mine_bundle(target)"),
+        ("vm_exec", "{target}", "tenant_pairs(findings)"),
+        ("seal", "{target}", "seal mine findings"),
+    ],
+    "arsenal-recon": [
+        ("vm_exec", "{target}", "subfinder-domain(domain)"),
+        ("vm_exec", "{target}", "dnsrecon-std(domain)"),
+        ("vm_exec", "{target}", "theharvester-crtsh(domain)"),
+        ("seal", "{target}", "seal recon evidence"),
+    ],
+    "arsenal-probe": [
+        ("vm_exec", "{target}", "whatweb-probe(url)"),
+        ("vm_exec", "{target}", "httpx-probe(url)"),
+        ("vm_exec", "{target}", "wafw00f-detect(url)"),
+        ("seal", "{target}", "seal probe evidence"),
+    ],
+    "arsenal-content": [
+        ("vm_exec", "{target}", "ffuf-dir(url)"),
+        ("seal", "{target}", "seal content-discovery evidence"),
+    ],
+    "arsenal-vuln": [
+        ("vm_exec", "{target}", "nikto-scan(url)"),
+        ("vm_exec", "{target}", "nuclei-high(url)"),
+        ("seal", "{target}", "seal vuln-scan evidence"),
     ],
     "recon-pipeline": [
         ("vm_exec", "{target}", "ct_seed(target)"),

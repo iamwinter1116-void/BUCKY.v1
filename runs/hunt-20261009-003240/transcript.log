@@ -1,0 +1,6 @@
+mode: deterministic-curriculum
+arsenal-probe-1 FAILED: name 'scope' is not defined
+arsenal-probe-2 FAILED: name 'scope' is not defined
+arsenal-probe-3 FAILED: name 'scope' is not defined
+arsenal-probe-4 seal http://127.0.0.1:19077/ -> evidence-dir sealed: runs\hunt-20261009-003240
+FINISH: curriculum arsenal-probe the url http://127.0.0.1:19077/ for fingerprint and waf-detect (COMPLETE)

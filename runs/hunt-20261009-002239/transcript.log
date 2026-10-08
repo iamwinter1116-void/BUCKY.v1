@@ -1,0 +1,5 @@
+mode: deterministic-curriculum
+bundle-mine-1 vm_exec http://127.0.0.1:19077/vuln-bundle.js -> mined: 0 findings ()
+bundle-mine-2 vm_exec http://127.0.0.1:19077/vuln-bundle.js -> tenant-pairs: 0
+bundle-mine-3 seal http://127.0.0.1:19077/vuln-bundle.js -> evidence-dir sealed: runs\hunt-20261009-002239
+FINISH: curriculum mine the bundle at http://127.0.0.1:19077/vuln-bundle.js (COMPLETE)

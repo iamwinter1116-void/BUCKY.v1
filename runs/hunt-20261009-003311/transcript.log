@@ -1,0 +1,6 @@
+mode: deterministic-curriculum
+arsenal-probe-1 vm_exec http://paytm.com/ -> scope-denied (out-of-scope host: paytm.com)
+arsenal-probe-2 vm_exec http://paytm.com/ -> scope-denied (out-of-scope host: paytm.com)
+arsenal-probe-3 vm_exec http://paytm.com/ -> scope-denied (out-of-scope host: paytm.com)
+arsenal-probe-4 seal http://paytm.com/ -> scope-denied (out-of-scope host: paytm.com)
+FINISH: curriculum arsenal-probe the url http://paytm.com/ for fingerprint (COMPLETE)

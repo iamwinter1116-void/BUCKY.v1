@@ -1,0 +1,11 @@
+{
+  "label": "mine",
+  "sealed_at": "2026-10-08T18:52:05.839120+00:00",
+  "files": [
+    {
+      "file": "findings.txt",
+      "sha256": "0e9ec8bc13f59abca034d4677e5e9d08069fabbb13a8ac6d4e98681e6a32c22d",
+      "bytes": 3523
+    }
+  ]
+}

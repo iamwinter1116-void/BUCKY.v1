@@ -129,17 +129,34 @@ def extract_hosts(url_or_host: str) -> list[str]:
         except ValueError:
             return []
         host = netloc.split("@", 1)[-1]  # strip userinfo
-        # strip ONLY a valid trailing port: ':digits' at the end
-        if host and host[-1].isdigit():
-            colon = host.rfind(":")
-            if colon > 0 and host[colon + 1:].isdigit():
-                host = host[:colon]
-        return [host.lower()]
+        return [_strip_port(host)]
     # bare host:port or host/path
     host = s.split("/", 1)[0]
     host = host.split("@", 1)[-1]  # strip userinfo
-    host = host.split(":", 1)[0]
-    return [host.lower()]
+    return [_strip_port(host)]
+
+
+def _strip_port(host: str) -> str:
+    """Strip ONLY a valid trailing ':digits' port — never a mid-string
+    colon cut (which would turn 'ip:80.evil.tld' back into 'ip').
+    Idempotent: _strip_port(x) == _strip_port(_strip_port(x)).
+
+    IPv6: bracketed '[v6]:port' unbrackets; bare '::1' passes through.
+    """
+    host = (host or "").strip()
+    if host.startswith("["):  # bracketed IPv6 literal
+        end = host.find("]")
+        if end > 0 and host[end + 1:].startswith(":") \
+                and host[end + 2:].isdigit():
+            return host[1:end].lower()
+        return host.lower()
+    # plain host (or unbracketed v6): strip port only when there is
+    # exactly one colon AND everything after it is digits
+    if host.count(":") == 1:
+        pre, post = host.split(":")
+        if post.isdigit() and pre:
+            return pre.lower()
+    return host.lower()
 
 
 def check_command(cmd: str, scope: Scope) -> ScopeVerdict:

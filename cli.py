@@ -113,6 +113,16 @@ def _build_parser() -> argparse.ArgumentParser:
     p_trk.add_argument("--sla", type=int, default=7)
     p_trk.add_argument("--tracker", default="tracker.json")
 
+    p_mine = sub.add_parser(
+        "mine", help="deep-mine a JS bundle (tenant/scheme/deeplink/getters)")
+    p_mine.add_argument("url_or_file")
+    p_mine.add_argument("--max", type=int, default=200)
+
+    p_ars = sub.add_parser("arsenal", help="Kali tool arsenal (scoped verbs)")
+    p_ars.add_argument("action", choices=["list", "inventory", "run"])
+    p_ars.add_argument("verb", nargs="?", default="")
+    p_ars.add_argument("target", nargs="?", default="")
+
     return ap
 
 
@@ -304,6 +314,77 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(trk.summary(), indent=1))
             return 0
 
+    if a.cmd == "mine":
+        from core.lanes_jsdeep import mine_bundle, summarize, tenant_pairs
+        src = a.url_or_file
+        p = Path(src)
+        if p.exists():
+            text = p.read_text(encoding="utf-8", errors="replace")
+            label = str(p)
+        else:
+            # treat as URL: fetch once via the VM (gentle, single GET)
+            r = vmbridge.run(f"curl -s -m 15 {src}")
+            if not (r.ok and r.output):
+                print(f"[mine] cannot read {src} (file absent or fetch "
+                      f"failed)", file=sys.stderr)
+                return 1
+            text = r.output
+            label = src
+        fs = mine_bundle(text, max_findings=a.max)
+        kinds = summarize(fs)
+        print(f"[mine] {label}: {len(fs)} findings")
+        for k, v in sorted(kinds.items()):
+            print(f"  {k}: {v}")
+        for pair in tenant_pairs(fs):
+            print(f"  [tenant-pair] {pair}")
+        for f in fs[:12]:
+            print(f"  @{f.offset} L{f.line} [{f.kind}] {f.preview[:70]}")
+        if fs:
+            out = Path("runs") / "mine" / (Path(label).stem or "bundle")
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "findings.txt").write_text(
+                "\n".join(f"{f.kind}\t{f.offset}\t{f.line}\t{f.redacted}"
+                          for f in fs), encoding="utf-8")
+            seal_res = evidence.seal(str(out), label="mine")
+            print(f"[mine] sealed {len(seal_res.files)} files -> {out}")
+        return 0
+
+    if a.cmd == "arsenal":
+        from core.kali_arsenal import (build_command, categories,
+                                       inventory, run_verb, verbs,
+                                       vet_target)
+        from core.scopegate import Scope, TargetRule
+        if a.action == "list":
+            cats = categories()
+            for cat in sorted(cats):
+                print(f"{cat}:")
+                for vid in cats[cat]:
+                    v = verbs()[vid]
+                    print(f"  {vid:22s} [{v.rate_class:9s}] "
+                          f"{v.tool} {' '.join(v.argv_template)}")
+            return 0
+        if a.action == "inventory":
+            inv = inventory(vmbridge.run)
+            for t in sorted(inv):
+                print(f"  {'OK ' if inv[t] else 'MISSING '}{t}")
+            print(f"[arsenal] {sum(inv.values())}/{len(inv)} tools live")
+            return 0
+        if a.action == "run":
+            if not (a.verb and a.target):
+                print("usage: bucky arsenal run <verb> <target>",
+                      file=sys.stderr)
+                return 2
+            scope = Scope([TargetRule("127.0.0.1"),
+                          TargetRule("localhost"),
+                          TargetRule("*.example.com")])
+            res = run_verb(a.verb, a.target, scope, vmbridge.run)
+            print(f"[arsenal] {res.summary}")
+            print(f"          scope: {res.scope or 'n/a'}")
+            if res.ok:
+                for line in res.output.splitlines()[:15]:
+                    print(f"  | {line[:120]}")
+            return 0 if res.ok else 1
+
     return 2
 
 
@@ -425,6 +506,32 @@ def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
             cands = takeover_candidates(dns_expand([domain]))
             return (f"takeover: {len(cands)} candidates" +
                     (f" ({cands[0].provider})" if cands else ""))
+        if "mine_bundle" in st.goal:
+            r = vmbridge.run(f"curl -s -m 15 {tgt}")
+            if r.ok and r.output:
+                from core.lanes_jsdeep import (mine_bundle, summarize,
+                                               tenant_pairs)
+                fs = mine_bundle(r.output)
+                kinds = summarize(fs)
+                top = ", ".join(f"{k}x{v}" for k, v in
+                                sorted(kinds.items(), key=lambda x: -x[1])[:5])
+                return f"mined: {len(fs)} findings ({top})"
+            return "bundle fetch failed"
+        if "tenant_pairs" in st.goal:
+            r = vmbridge.run(f"curl -s -m 15 {tgt}")
+            if r.ok and r.output:
+                from core.lanes_jsdeep import mine_bundle, tenant_pairs
+                pairs = tenant_pairs(mine_bundle(r.output))
+                return (f"tenant-pairs: {len(pairs)}"
+                        + (f" — {pairs[0][:100]}" if pairs else ""))
+            return "bundle fetch failed"
+        # --- Kali arsenal verbs (typed, scope-gated) -------------------
+        from core.kali_arsenal import verbs as _ars_verbs
+        _goal_verb = st.goal.split("(")[0].strip()
+        if _goal_verb in _ars_verbs():
+            from core.kali_arsenal import run_verb
+            res = run_verb(_goal_verb, tgt, scope_obj, vmbridge.run)
+            return f"{res.summary} [scope: {res.scope or 'n/a'}]"
         return f"vm_exec goal: {st.goal} on {tgt}"
 
     cur = decompose(objective, next(

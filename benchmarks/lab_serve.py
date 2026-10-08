@@ -32,6 +32,20 @@ CLEAN_BUNDLE = (
     "function boot(){return true;} console.log('ok');"
 )
 
+# jsdeep twins: vulnerable tenant bundle (planted R7-class structures)
+VULN_JSDEEP = (
+    "var cfg={fd:'https://acme-sandbox.freshdesk.com'};"
+    "var cfg2={fd:'https://acme.freshdesk.com'};"
+    "function nav(p){if([\"http:\",\"https:\",\"appmp:\",\"appba:\"].indexOf(p)<0)"
+    "{throw Error('bad scheme')}else{location=p+'go'}}"
+    "open('appmp://mini-app?urlType=launchBot&id=x1');"
+    "Siy:()=>Ce;"
+)
+CLEAN_JSDEEP = (
+    "var cfg={version:'1.0'};"
+    "function nav(p){if(p==='http:'||p==='https:'){location=p}}"
+)
+
 
 class LabHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
@@ -42,6 +56,8 @@ class LabHandler(http.server.BaseHTTPRequestHandler):
             "/clean-handler.js": (None, CLEAN_HANDLER),
             "/vuln-bundle.js": (None, VULN_BUNDLE),
             "/clean-bundle.js": (None, CLEAN_BUNDLE),
+            "/vuln-jsdeep.js": (None, VULN_JSDEEP),
+            "/clean-jsdeep.js": (None, CLEAN_JSDEEP),
         }
         if self.path not in routes:
             self.send_error(404)

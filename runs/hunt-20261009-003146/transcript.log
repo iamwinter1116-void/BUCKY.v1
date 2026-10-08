@@ -1,0 +1,6 @@
+mode: deterministic-curriculum
+arsenal-probe-1 vm_exec http://127.0.0.1:19077/ -> vm_exec goal: whatweb-probe(url) on http://127.0.0.1:19077/
+arsenal-probe-2 vm_exec http://127.0.0.1:19077/ -> vm_exec goal: httpx-probe(url) on http://127.0.0.1:19077/
+arsenal-probe-3 vm_exec http://127.0.0.1:19077/ -> vm_exec goal: wafw00f-detect(url) on http://127.0.0.1:19077/
+arsenal-probe-4 seal http://127.0.0.1:19077/ -> evidence-dir sealed: runs\hunt-20261009-003146
+FINISH: curriculum arsenal-probe the url http://127.0.0.1:19077/ for fingerprint and waf-detect (COMPLETE)

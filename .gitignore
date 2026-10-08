@@ -1,0 +1,14 @@
+# secrets — never commit
+config.json
+ai-history.jsonl
+
+# evidence & runtime artifacts
+evidence/
+*.png
+*.body
+*.headers
+
+# python
+__pycache__/
+*.pyc
+.venv/

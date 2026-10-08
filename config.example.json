@@ -1,0 +1,22 @@
+{
+  "_readme": "BUCKY config — copy to config.json, paste YOUR AI api_key, done.",
+  "ai": {
+    "provider": "openai-compat",
+    "api_key": "",
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-4o-mini"
+  },
+  "vm": {
+    "name": "kali-linux-2026.2-virtualbox-amd64",
+    "ssh_key": "C:/Users/HP/.ssh/hermes-kali",
+    "host": "127.0.0.1",
+    "port": 2222,
+    "user": "kali",
+    "vboxmanage": "C:/Program Files/Oracle/VirtualBox/VBoxManage.exe",
+    "workdir": "/home/kali/cyberforge"
+  },
+  "paths": {
+    "workspace": "C:/Users/HP/winterforge",
+    "evidence_root": "C:/Users/HP/winterforge/evidence"
+  }
+}

@@ -8,19 +8,32 @@
    optional accelerator on top. 3 objectives live-verified. Plan
    templates fixed (pseudo-targets → real URLs); PmVerdict.evidence
    API-align; scope-list→Scope-object bug caught by the run itself.
-10. **v0.12 (3db7fc2)**: sanitizer-oracle — the P80-class fall-through
-    detector, PRODUCTION-VALIDATED: the engine reproduces the C178
-    finding from the sealed care-prod-main.js artifact alone
-    (parse-sink + protocol-allowlist + else-create-attrs, no tag-gate).
-    5/5 tests incl. the prod-validation gate.
+11. **v0.13 (eea01f3)**: hunt covers **5 audit-classes** — sanitizer-audit
+    plan + recon lanes (ct_seed/dns/takeover) wired into the curriculum
+    dispatch; domain-extract port-strip bug fixed (127.0.0.1:19077 →
+    127.0.0.1); all 5 classes live-verified against the VM lab.
+12. **v0.14 (4171eca)**: learning-from-runs closes the self-learning
+    loop operationally — RunMiner (transcript→lessons, dedup, top-N),
+    lesson→pattern bridge (anchor-lessons only), operator-confirmed
+    3-gate upgrades. 7 tests. Regex charclass bug caught (`_` missing
+    → G3-fail — the gate did its job).
+
+## FINAL NIGHT-VALIDATION (5 pillars, machine-verified):
+1. unit-suites: 68 GREEN (8 suites)
+2. paper-grade benchmark v2: GREEN
+3. upgrade-gate: 35 GREEN
+4. flagship e2e (full chain vs live VM lab): GREEN
+5. CLI hunt live (CSP B1 verdict): GREEN
 
 ## FULL-ENGINE STATE (end of night):
-- 61 unit tests green (7 suites) + paper-grade v2 suite + flagship e2e
+- 68 unit tests green (8 suites) + paper-grade v2 suite + flagship e2e
   (5-run variance stdev 0.0) — every suite individually AND via the
   upgrade-gate.
-- Detector count: csp-verdict, pm-guard, js-secrets, sanitizer-oracle
+- Detectors: csp-verdict, pm-guard, js-secrets, sanitizer-oracle
   (prod-validated), recon-6-stage, Burp proxy lane.
 - Modes: deterministic-curriculum (no key) + agentic-llm (key).
+- Self-learning: registry upgrades (3-gate) + skill admission (>=2
+  benchmarks) + RunMiner transcript lessons.
 5. **v0.7 (1c9633d)**: recon-pipeline lanes — 6-stage passive-first
    (ct_seed cache-offline, dns_expand, http_probe single-GET,
    js_inventory, stale_check, takeover_candidates WITHOUT claim-action).

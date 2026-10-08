@@ -101,6 +101,18 @@ def _build_parser() -> argparse.ArgumentParser:
     p_rep.add_argument("--remediation", default="")
     p_rep.add_argument("--refs", default="")
 
+    p_trk = sub.add_parser("track", help="submission/SLA tracker")
+    p_trk.add_argument("action",
+                       choices=["add", "status", "followup", "overdue",
+                                "summary"])
+    p_trk.add_argument("id", nargs="?", default="")
+    p_trk.add_argument("--title", default="")
+    p_trk.add_argument("--program", default="")
+    p_trk.add_argument("--status", default="")
+    p_trk.add_argument("--note", default="")
+    p_trk.add_argument("--sla", type=int, default=7)
+    p_trk.add_argument("--tracker", default="tracker.json")
+
     return ap
 
 
@@ -249,6 +261,48 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[report] seal the run-dir before submission: "
               f"bucky seal {a.run_dir}")
         return 0
+
+    if a.cmd == "track":
+        from core.tracker import ReportEntry, Tracker
+        trk = Tracker.load(a.tracker)
+        if a.action == "add":
+            if not (a.id and a.title):
+                print("usage: bucky track add <ID> --title T", file=sys.stderr)
+                return 2
+            e = trk.add(ReportEntry(report_id=a.id, title=a.title,
+                                    program=a.program, sla_days=a.sla))
+            print(f"[track] added {e.report_id} (sla {e.sla_days}d)")
+            return 0
+        if a.action == "status":
+            if not (a.id and a.status):
+                print("usage: bucky track status <ID> --status S",
+                      file=sys.stderr)
+                return 2
+            e = trk.update_status(a.id, a.status, a.note)
+            print(f"[track] {e.report_id} -> {e.status}")
+            return 0
+        if a.action == "followup":
+            if not (a.id and a.note):
+                print("usage: bucky track followup <ID> --note T",
+                      file=sys.stderr)
+                return 2
+            e = trk.followup(a.id, a.note)
+            print(f"[track] followup logged on {e.report_id} "
+                  f"({len(e.followups)} total)")
+            return 0
+        if a.action == "overdue":
+            od = trk.overdue()
+            if not od:
+                print("[track] no overdue submissions")
+                return 0
+            for e in od:
+                print(f"[track] OVERDUE {e.report_id} "
+                      f"(submitted {e.submitted}, sla {e.sla_days}d) "
+                      f"— {e.title[:60]}")
+            return 1
+        if a.action == "summary":
+            print(json.dumps(trk.summary(), indent=1))
+            return 0
 
     return 2
 

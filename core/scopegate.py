@@ -113,21 +113,33 @@ def extract_hosts(url_or_host: str) -> list[str]:
     """Extract candidate host(s) from a URL or bare host string.
 
     Handles scheme, port, userinfo, and path noise.
+
+    SECURITY: never trust urlsplit().hostname for host AUTHORIZATION —
+    it silently truncates attacker suffixes like '127.0.0.1:80.evil.tld'
+    to '127.0.0.1' (colon-dot parsing). We take the full netloc and
+    strip ONLY a valid trailing :port; anything else stays part of the
+    host and will fail the exact-match/CIDR scope check.
     """
     s = (url_or_host or "").strip()
     if not s:
         return []
     if "://" in s:
         try:
-            return [urlsplit(s).hostname or ""]
+            netloc = urlsplit(s).netloc
         except ValueError:
             return []
+        host = netloc.split("@", 1)[-1]  # strip userinfo
+        # strip ONLY a valid trailing port: ':digits' at the end
+        if host and host[-1].isdigit():
+            colon = host.rfind(":")
+            if colon > 0 and host[colon + 1:].isdigit():
+                host = host[:colon]
+        return [host.lower()]
     # bare host:port or host/path
     host = s.split("/", 1)[0]
     host = host.split("@", 1)[-1]  # strip userinfo
-    host = host.split(":", 1)[0]   # strip port (works for IPv6 too? no —
-    # IPv6 bare literals are rare in our usage; urlsplit covers them)
-    return [host]
+    host = host.split(":", 1)[0]
+    return [host.lower()]
 
 
 def check_command(cmd: str, scope: Scope) -> ScopeVerdict:

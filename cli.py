@@ -381,7 +381,18 @@ def cmd_hunt(objective: str, hint: str = "", max_steps: int = 25) -> int:
                 ev = h.evidence[0] if h.evidence else ""
                 return f"PM verdict: {h.pattern} ({ev[:100]})"
             return "handler fetch failed"
+        if "js_inventory" in st.goal:
+            # collect script URLs from the page (VM-side fetch), no fetching yet
+            r = vmbridge.run(f"curl -s -m 8 {tgt}")
+            import re as _re2
+            urls = _re2.findall(r'src=["\']([^"\']+\.js[^"\']*)["\']',
+                                r.output or "")
+            if not urls:
+                return "js_inventory: no script tags on page (or fetch empty)"
+            return (f"js_inventory: {len(urls)} script URLs "
+                    f"({', '.join(u[:60] for u in urls[:3])}…)")
         if "detect_secrets" in st.goal:
+            # sweep the TARGET ITSELF as bundle (works for .js URLs and pages)
             r = vmbridge.run(f"curl -s -m 8 {tgt}")
             if r.ok and r.output:
                 from core.lanes_security import detect_secrets

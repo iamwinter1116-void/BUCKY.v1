@@ -4,3 +4,5 @@ probe /clean -> clean
 handler vuln=P1 clean=strict
 secrets vuln=['aws-access-key', 'azure-client-secret', 'jwt'] clean=0
 FINISH: e2e hunt chain verified TP=B1 FP=0 in 4.8s
+
+Expected: CSP header contains unsafe-inline and unsafe-eval

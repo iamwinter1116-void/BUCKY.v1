@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parent.parent
 GATE_MODULES: tuple[tuple[str, str], ...] = (
     ("tests", "test_core"),
     ("tests", "test_v02"),
+    ("tests", "test_recon"),
+    ("tests", "test_sanitizer_oracle"),
+    ("tests", "test_tracker"),
     ("benchmarks", "test_benchmarks"),
 )
 

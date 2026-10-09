@@ -130,24 +130,34 @@ def actions() -> tuple[ChainAction, ...]:
 
 
 def plan_to_goal(initial: set[str], goal: str,
-                 actions_set: tuple[ChainAction, ...] = _ACTIONS
-                 ) -> ChainVerdict:
+                 actions_set: tuple[ChainAction, ...] = _ACTIONS,
+                 *, log_search: bool = False
+                 ) -> ChainVerdict | tuple[ChainVerdict, dict]:
     """BFS forward search: initial predicates -> goal capability.
 
     Deterministic: actions expand in registry order; the first minimal
     plan wins; ties break by insertion order (stable).
+
+    AutoPentest-DRL discipline (Agent-K): the planner must NEVER
+    collapse to the single best chain (that IS the tunnel-vision
+    failure mode, 0.86-accuracy DQN convergence). With log_search=True
+    returns (verdict, stats) where stats carries chains-considered vs
+    chains-executed — the anti-tunnel-vision ratio, logged per cycle.
     """
     if goal not in IMPACT_GOALS:
-        return ChainVerdict(False, goal, (), 0, (), True)
+        v = ChainVerdict(False, goal, (), 0, (), True)
+        return (v, _search_stats(0, 0)) if log_search else v
     if goal in initial:
-        return ChainVerdict(False, goal, (), 0, (), True)  # already had it
+        v = ChainVerdict(False, goal, (), 0, (), True)  # already had it
+        return (v, _search_stats(0, 0)) if log_search else v
 
     start = frozenset(initial)
-    # state -> (plan names, severities); BFS by action count
     frontier: deque[tuple[frozenset[str], tuple[str, ...],
                           tuple[str, ...]]] = deque(
         [(start, (), ())])
     seen: set[frozenset[str]] = {start}
+    considered = 0
+    executed = 0
     while frontier:
         state, plan, sevs = frontier.popleft()
         if len(plan) > 8:            # depth bound (graph stays small)
@@ -160,17 +170,29 @@ def plan_to_goal(initial: set[str], goal: str,
             if act.requires_any and not any(
                     r in state for r in act.requires_any):
                 continue
+            considered += 1
             new_state = state | {act.grants}
             if act.grants == goal:
-                return ChainVerdict(
+                executed += 1
+                v = ChainVerdict(
                     True, goal, plan + (act.name,), len(plan) + 1,
                     tuple(dict.fromkeys(sevs + (act.severity,))))
+                if log_search:
+                    return v, _search_stats(considered, executed)
+                return v
             if new_state not in seen:
                 seen.add(new_state)
                 frontier.append(
                     (new_state, plan + (act.name,),
                      tuple(dict.fromkeys(sevs + (act.severity,)))))
-    return ChainVerdict(False, goal, (), 0, (), True)
+    v = ChainVerdict(False, goal, (), 0, (), True)
+    return (v, _search_stats(considered, executed)) if log_search else v
+
+
+def _search_stats(considered: int, executed: int) -> dict:
+    """Chains-considered vs chains-executed (tunnel-vision ratio)."""
+    return {"chains_considered": considered, "chains_executed": executed,
+            "ratio": round(considered / executed, 2) if executed else 0.0}
 
 
 def verdict_from_findings(finding_kinds: set[str],

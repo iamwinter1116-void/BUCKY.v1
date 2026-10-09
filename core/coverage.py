@@ -23,23 +23,49 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 # ---------------------------------------------------------------------------
-# authoritative WSTG v4.2 category table
+# authoritative WSTG v4.2 category table (official checklist.json counts,
+# Agent-K verified 2026-10-09: 98 objectives total)
 
 WSTG_CATEGORIES: dict[str, tuple[str, int]] = {
     "INFO": ("Information Gathering", 10),
-    "CONF": ("Configuration & Deployment Management", 14),
+    "CONF": ("Configuration & Deployment Management", 11),
     "IDNT": ("Identity Management", 5),
-    "ATHN": ("Authentication", 11),
-    "ATHZ": ("Authorization", 5),
-    "SESS": ("Session Management", 11),
-    "INPV": ("Input Validation", 22),
+    "ATHN": ("Authentication", 10),
+    "ATHZ": ("Authorization", 4),
+    "SESS": ("Session Management", 9),
+    "INPV": ("Input Validation", 20),   # INPV-13 dual-ID quirk upstream
     "ERRH": ("Error Handling", 2),
     "CRYP": ("Cryptography", 4),
-    "BUSL": ("Business Logic", 10),
-    "CLNT": ("Client-side Testing", 15),
-    "APIT": ("API Testing", 4),
+    "BUSL": ("Business Logic", 9),
+    "CLNT": ("Client-side Testing", 13),
+    "APIT": ("API Testing", 1),
 }
-WSTG_TOTAL = sum(n for _, n in WSTG_CATEGORIES.values())  # 113
+WSTG_TOTAL = sum(n for _, n in WSTG_CATEGORIES.values())  # 98
+
+# CWE Top 25 (2024) — third coverage axis (MITRE, 31,770 CVEs)
+CWE_TOP25: tuple[tuple[str, str, float], ...] = (
+    ("CWE-79", "XSS", 56.92), ("CWE-787", "Out-of-bounds Write", 45.20),
+    ("CWE-89", "SQL Injection", 35.88), ("CWE-352", "CSRF", 19.57),
+    ("CWE-22", "Path Traversal", 12.74), ("CWE-125", "OOB Read", 11.42),
+    ("CWE-78", "OS Command Injection", 11.30),
+    ("CWE-416", "Use After Free", 10.19),
+    ("CWE-862", "Missing Authorization", 10.11),
+    ("CWE-434", "Unrestricted Upload", 10.03),
+    ("CWE-94", "Code Injection", 7.13), ("CWE-20", "Input Validation", 6.78),
+    ("CWE-77", "Command Injection", 6.74),
+    ("CWE-287", "Improper Authentication", 5.94),
+    ("CWE-269", "Privilege Management", 5.22),
+    ("CWE-502", "Deserialization", 5.07),
+    ("CWE-200", "Info Exposure", 5.07),
+    ("CWE-863", "Incorrect Authorization", 4.05),
+    ("CWE-918", "SSRF", 4.05),
+    ("CWE-119", "Memory Bounds", 3.69),
+    ("CWE-476", "NULL Deref", 3.58),
+    ("CWE-798", "Hard-coded Credentials", 3.46),
+    ("CWE-190", "Integer Overflow", 3.37),
+    ("CWE-400", "Resource Consumption", 3.23),
+    ("CWE-306", "Missing Auth for Critical Function", 2.73),
+)
 
 
 @dataclass(frozen=True)
@@ -146,6 +172,10 @@ def coverage_entries() -> tuple[CoverageEntry, ...]:
 class CoverageReport:
     entries: tuple[CoverageEntry, ...] = field(
         default_factory=lambda: _ENGINE_COVERAGE)
+    # Mind-the-Gap two-metric: touched (verb ran) vs oracled
+    # (proof-gate/deterministic verdict exists)
+    touched: set[str] = field(default_factory=set)
+    oracled: set[str] = field(default_factory=set)
 
     def by_status(self, status: str) -> list[CoverageEntry]:
         return [e for e in self.entries if e.status == status]
@@ -210,6 +240,40 @@ class CoverageReport:
                 0.5 if e.status in ("partial", "arsenal") else 0.0
                 for e in self.entries)
         return round(s / len(self.entries) * 100, 1)
+
+    # --- Mind-the-Gap two-metric (Agent-K) -----------------------------
+    def oracle_gaps(self) -> list[str]:
+        """Objectives touched but NOT oracled — the weak-oracle list.
+
+        These are the highest-priority next-cycle targets: a verb ran
+        but nothing PROVED anything about them (PMForce doctrine).
+        """
+        return sorted(self.touched - self.oracled)
+
+    def record_touched(self, wstg_id: str) -> None:
+        self.touched.add(wstg_id)
+
+    def record_oracled(self, wstg_id: str) -> None:
+        self.oracled.add(wstg_id)
+        self.touched.add(wstg_id)  # oracled implies touched
+
+    # --- CWE Top-25 axis (Agent-K) --------------------------------------
+    def cwe_gaps(self, covered_cwes: set[str] | None = None) -> list[str]:
+        """Top-25 weaknesses with no registered detector (priority =
+        score-descending). covered_cwes: extra CWE ids covered by
+        campaign profiles/learned patterns."""
+        have = covered_cwes or set()
+        return [cwe for cwe, _n, _s in CWE_TOP25 if cwe not in have]
+
+    def render_cwe_axis(self, covered_cwes: set[str] | None = None) -> str:
+        have = covered_cwes or set()
+        lines = ["CWE TOP-25 COVERAGE (2024, 31,770 CVEs)"]
+        for cwe, name, score in CWE_TOP25:
+            mark = "✓" if cwe in have else "✗"
+            lines.append(f"  {mark} {cwe:8s} {name:38s} {score}")
+        n = sum(1 for c, _n, _s in CWE_TOP25 if c in have)
+        lines.append(f"covered {n}/{len(CWE_TOP25)}")
+        return "\n".join(lines)
 
 
 def next_build_backlog() -> list[CoverageEntry]:

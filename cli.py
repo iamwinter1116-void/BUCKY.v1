@@ -31,6 +31,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from core import evidence, lanes, vmbridge, ai  # noqa: E402
+from core.submit_gate import KnownIssue, ProgramRule  # noqa: E402
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -100,6 +101,26 @@ def _build_parser() -> argparse.ArgumentParser:
     p_rep.add_argument("--env", default="see sealed evidence")
     p_rep.add_argument("--remediation", default="")
     p_rep.add_argument("--refs", default="")
+    p_rep.add_argument("--issue-class", default="",
+                       help="finding class for submit-gate (e.g. "
+                            "exposed-artifact-repo)")
+    p_rep.add_argument("--asset-host", default="",
+                       help="affected asset hostname for submit-gate")
+    p_rep.add_argument("--runtime-capture", default="",
+                       help="run-dir file proving runtime impact")
+    p_rep.add_argument("--profile", default="",
+                       help="campaign profile JSON with program_rules")
+    p_rep.add_argument("--tracker", default="",
+                       help="campaign tracker JSON with known_issues")
+
+    p_hyd = sub.add_parser(
+        "hydra", help="animated emblem + villain dialogue (the face)")
+    p_hyd.add_argument("--frames", type=int, default=16)
+    p_hyd.add_argument("--delay", type=float, default=0.09)
+    p_hyd.add_argument("--static", action="store_true",
+                       help="no animation/ANSI (pipes, tests)")
+    p_hyd.add_argument("--say", default="",
+                       help="force a specific dialogue line")
 
     p_trk = sub.add_parser("track", help="submission/SLA tracker")
     p_trk.add_argument("action",
@@ -145,6 +166,47 @@ def _build_parser() -> argparse.ArgumentParser:
                        help="Origin header value for CORS reflection test")
 
     return ap
+
+
+def _load_program_rules(profile_path: str | None
+                        ) -> tuple[ProgramRule, ...]:
+    """Campaign exclusion-rules from the profile JSON (vendor-neutral)."""
+    if not profile_path:
+        return ()
+    pf = Path(profile_path)
+    if not pf.is_file():
+        return ()
+    try:
+        import json
+        data = json.loads(pf.read_text(encoding="utf-8"))
+        raw = data.get("program_rules", [])
+        return tuple(ProgramRule(r["kind"], r["pattern"],
+                                 r.get("reason", ""))
+                     for r in raw if "kind" in r and "pattern" in r)
+    except Exception:
+        return ()
+
+
+def _load_known_issues(tracker_path: str | None
+                       ) -> tuple[KnownIssue, ...]:
+    """Known-issue ledger from the campaign tracker (duplicate gate)."""
+    if not tracker_path:
+        return ()
+    tf = Path(tracker_path)
+    if not tf.is_file():
+        return ()
+    try:
+        import json
+        data = json.loads(tf.read_text(encoding="utf-8"))
+        raw = data.get("known_issues", [])
+        return tuple(KnownIssue(k["issue_class"], k["asset"],
+                                k.get("outcome", "duplicate"),
+                                k.get("reference", ""))
+                     for k in raw if "issue_class" in k and "asset" in k)
+    except Exception:
+        return ()
+
+
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -249,12 +311,38 @@ def main(argv: list[str] | None = None) -> int:
             print(r.output)
             return 0 if r.ok else 1
 
+    if a.cmd == "hydra":
+        from core.hydra import DIALOGUE, banner
+        banner(frames=max(1, a.frames), delay=0.0 if a.static else a.delay,
+               ansi=not a.static,
+               dialogue=(a.say or None) if a.say else None)
+        return 0
+
     if a.cmd == "report":
         from core.packer import ReportDraft, pack
+        from core.submit_gate import (FindingMeta, KnownIssue,
+                                      ProgramRule, submit_gate)
         rd = Path(a.run_dir)
         if not rd.is_dir():
             print(f"[report] run-dir not found: {a.run_dir}", file=sys.stderr)
             return 2
+        # --- triage-rejection gates BEFORE the pack is built -------
+        prog = _load_program_rules(a.profile)
+        ledger = _load_known_issues(a.tracker)
+        sm = FindingMeta(issue_class=a.issue_class or "uncategorized",
+                         asset_host=a.asset_host or "unknown.host",
+                         impact_text=a.impact,
+                         has_runtime_capture=bool(
+                             a.runtime_capture
+                             and (rd / a.runtime_capture).exists()))
+        sv = submit_gate(sm, program_rules=prog, known_issues=ledger)
+        if not sv.ok:
+            print("[report] SUBMIT-GATE REFUSED — real triage classes:")
+            for r in sv.rejections:
+                print(f"  - {r}")
+            print("[report] Fix the finding class/asset/impact or add a "
+                  "runtime capture before packing.")
+            return 1
         tr = (rd / "transcript.log").read_text(encoding="utf-8",
                                               errors="replace") \
             if (rd / "transcript.log").exists() else ""

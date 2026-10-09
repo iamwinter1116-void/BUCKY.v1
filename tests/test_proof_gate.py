@@ -56,7 +56,10 @@ class TestProofGate(unittest.TestCase):
         v = verdict_from_findings(FULL_CHAIN, goal=CAP_CROSS_TENANT)
         tpl = materialize(v)
         self.assertEqual(tpl[-1].capability, CAP_CROSS_TENANT)
-        self.assertIn("aid", tpl[-1].params)  # template slot name
+        # GENERIC template slots (vendor-neutral)
+        self.assertIn("scheme", tpl[-1].params)
+        self.assertIn("launch-param", tpl[-1].params)
+        self.assertIn("payload", tpl[-1].params)
 
     def test_render_report_shape(self):
         v = verdict_from_findings(FULL_CHAIN, goal=CAP_CROSS_TENANT)

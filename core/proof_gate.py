@@ -25,6 +25,8 @@ from dataclasses import dataclass
 from core.chain_verdict import (CAP_CROSS_TENANT, CAP_DOM_XSS,
                                 CAP_SECRET_LEAK, ChainVerdict,
                                 KIND_DOCS, verdict_from_findings)
+from core.profiles import (DEFAULT_PROFILES_DIR, CampaignProfile,
+                           load_profile)
 
 _HAS_Z3 = None
 
@@ -60,10 +62,12 @@ _TEMPLATES: dict[str, ExploitTemplate] = {
         "marker element present in target DOM (or alert/marker fired)"),
     CAP_CROSS_TENANT: ExploitTemplate(
         CAP_CROSS_TENANT,
-        "{scheme}://mini-app?urlType=launchBot&aId={aid}&data={payload}",
-        ("scheme", "aid", "payload"),
-        "session-boundary crossed: bot session attributes reflect "
-        "attacker-supplied aid/payload (observed in runtime beacon)"),
+        "{scheme}://{bot-route}?{launch-param}={id}&{blob-param}={payload}",
+        ("scheme", "bot-route", "launch-param", "id",
+         "blob-param", "payload"),
+        "session-boundary crossed: embedded-bot session attributes "
+        "reflect attacker-supplied launch params (observed in runtime "
+        "beacon per campaign profile)"),
     CAP_SECRET_LEAK: ExploitTemplate(
         CAP_SECRET_LEAK,
         "fetch(archive-or-live bundle URL) -> secret pattern match",
@@ -102,42 +106,45 @@ class ProofResult:
         return f"[proof-gate] {self.goal}: {state} — {self.detail}"
 
 
-# observation signatures (deterministic regex over runtime captures)
-_OBS_PATTERNS: dict[str, list[re.Pattern[str]]] = {
-    CAP_DOM_XSS: [
-        re.compile(r"MARKER-[A-Z0-9]{6,}"),          # injected element id
-        re.compile(r"onerror=.*bucky-marker", re.I),
-    ],
-    CAP_CROSS_TENANT: [
-        re.compile(r"IFRAME_READY"),                 # C181-class beacon
-        re.compile(r"sessionInfo.*[\"']custId", re.I),
-        re.compile(r"attacker-aid-reflected|aId=[0-9a-f]{16,}", re.I),
-    ],
-    CAP_SECRET_LEAK: [
-        re.compile(r"AKIA[0-9A-Z]{16}"),
-        re.compile(r"ghp_[A-Za-z0-9_+=/-]{20,40}"),
-    ],
-}
+# ---------------------------------------------------------------------------
+# observation signatures: PROFILE-DRIVEN, engine stays generic.
+# The shipped default (profiles/generic-saas-embed.json) defines the
+# CLASSES (embed-handshake beacon, id-echoed-in-session, injected-
+# element-id, handler-execution, static-credential). A campaign adds
+# instance-level regexes via its own profile JSON — core never
+# hardcodes a vendor's beacon names.
+
+_DEFAULT_PROFILE_PATH = DEFAULT_PROFILES_DIR / "generic-saas-embed.json"
 
 
-def verify_observation(goal: str, runtime_capture: str) -> ProofResult:
+def default_profile() -> CampaignProfile:
+    if _DEFAULT_PROFILE_PATH.exists():
+        return load_profile(_DEFAULT_PROFILE_PATH)
+    return CampaignProfile(name="builtin-empty")
+
+
+def verify_observation(goal: str, runtime_capture: str,
+                       profile: CampaignProfile | None = None
+                       ) -> ProofResult:
     """Check a runtime capture for goal-capability evidence.
 
     Args:
         goal: composed capability (must be an impact goal).
         runtime_capture: msgcap/beacon/DOM text from the run.
+        profile: campaign profile supplying observation regexes
+            (default: shipped generic-saas-embed profile).
 
     Returns:
         ProofResult(proven=True) only when a signature matches.
     """
-    if goal not in _OBS_PATTERNS:
-        return ProofResult(False, goal, detail="no observation patterns "
-                           "registered for this goal")
-    for pat in _OBS_PATTERNS[goal]:
+    prof = profile or default_profile()
+    for pat, obs in prof.compiled():
+        if obs.capability != goal:
+            continue
         m = pat.search(runtime_capture or "")
         if m:
             return ProofResult(True, goal, observation=m.group(0),
-                               detail=f"signature {pat.pattern[:40]} "
+                               detail=f"signature '{obs.label or obs.pattern[:40]}' "
                                f"observed at runtime")
     return ProofResult(False, goal,
                        detail="no runtime signature observed (static "
@@ -145,12 +152,14 @@ def verify_observation(goal: str, runtime_capture: str) -> ProofResult:
                                "are FPs per PMForce)")
 
 
-def gate(verdict: ChainVerdict, runtime_capture: str) -> ProofResult:
+def gate(verdict: ChainVerdict, runtime_capture: str,
+         profile=None) -> ProofResult:
     """The PMForce gate: critical verdict -> runtime proof or lead."""
     if not verdict.reachable:
         return ProofResult(False, verdict.goal,
                            detail="chain not reachable; nothing to prove")
-    res = verify_observation(verdict.goal, runtime_capture)
+    res = verify_observation(verdict.goal, runtime_capture,
+                            profile=profile)
     if res.proven and verdict.severity == "critical":
         return ProofResult(True, verdict.goal, res.observation,
                            "critical CONFIRMED by runtime observation")

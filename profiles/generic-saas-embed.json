@@ -1,0 +1,40 @@
+{
+  "name": "generic-saas-embed",
+  "description": "GENERIC profile: any target that embeds a third-party support/bot widget in an iframe, registers a custom URL scheme, and hardcodes sandbox/prod tenant pairs. No vendor-specific strings — observation classes only (framework-agnostic beacon naming).",
+  "observations": [
+    {
+      "pattern": "\\bIFRAME_READY\\b",
+      "capability": "cross-tenant-session",
+      "label": "embed framework readiness beacon (class: child-frame-init handshake)"
+    },
+    {
+      "pattern": "sessionInfo[^\\n]{0,80}[\"']?cust(omer)?_?id",
+      "capability": "cross-tenant-session",
+      "label": "session-boundary info carrying a customer identifier (class: id-echoed-in-session)"
+    },
+    {
+      "pattern": "\\bMARKER-[A-Z0-9]{6,}\\b",
+      "capability": "dom-xss",
+      "label": "injected marker element observed (class: injected-element-id)"
+    },
+    {
+      "pattern": "onerror=[^\\n]{0,40}marker",
+      "capability": "dom-xss",
+      "label": "event-handler marker fired (class: handler-execution)"
+    },
+    {
+      "pattern": "AKIA[0-9A-Z]{16}",
+      "capability": "secret-material-exposed",
+      "label": "cloud key material (class: static-credential)"
+    },
+    {
+      "pattern": "ghp_[A-Za-z0-9_+=/-]{20,40}",
+      "capability": "secret-material-exposed",
+      "label": "source-hosting token (class: static-credential)"
+    }
+  ],
+  "template_hints": {
+    "cross-tenant-session": "scheme://{bot-path}?launch-param={id}&blob-param={payload}"
+  },
+  "extra_kinds": {}
+}

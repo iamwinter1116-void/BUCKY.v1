@@ -134,6 +134,8 @@ def _build_parser() -> argparse.ArgumentParser:
     p_chain.add_argument("url_or_file")
     p_chain.add_argument("--capture", default="",
                          help="runtime-capture file (msgcap/beacon text)")
+    p_chain.add_argument("--profile", default="",
+                         help="campaign profile JSON (generic default)")
 
     return ap
 
@@ -483,9 +485,13 @@ def main(argv: list[str] | None = None) -> int:
             capture = (cap.read_text(encoding="utf-8",
                                      errors="replace")
                        if cap.exists() else a.capture)
+        profile = None
+        if a.profile:
+            from core.profiles import load_profile
+            profile = load_profile(a.profile)
         print(f"[chain] findings: {sorted(kinds)}")
         verdict = CV.verdict_from_findings(kinds)
-        proof = PG.gate(verdict, capture)
+        proof = PG.gate(verdict, capture, profile=profile)
         print(PG.render_report(verdict, proof))
         out = Path("runs") / "chain" / (Path(label).stem or "target")
         out.mkdir(parents=True, exist_ok=True)

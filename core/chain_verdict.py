@@ -84,8 +84,8 @@ _ACTIONS: tuple[ChainAction, ...] = (
         requires=(CAP_TENANT_CONFUSION,),
         requires_any=("bot-launch-param", CAP_DOM_XSS),
         grants=CAP_BOT_SESSION,
-        finding_refs=("deeplink:urlType-launchBot",
-                      "jsdeep:getter-array"),
+        finding_refs=("deeplink:taint-inventory",
+                       "jsdeep:getter-array"),
         severity="high",
     ),
     ChainAction(
@@ -185,7 +185,8 @@ def verdict_from_findings(finding_kinds: set[str],
     return plan_to_goal(initial, goal)
 
 
-# finding-kind -> narrative mapping for report rendering
+# finding-kind -> narrative mapping for report rendering (GENERIC —
+# campaign-specific params never appear here; profiles supply those)
 KIND_DOCS = {
     "embeds-attacker-frame": "target embeds cross-origin iframe content",
     "handler-weak-origin": "postMessage handler weak/absent origin check",
@@ -193,6 +194,6 @@ KIND_DOCS = {
     "custom-scheme-registered": "custom URL scheme registered in app",
     "deeplink-taint-params": "scheme-builder query params attacker-set",
     "tenant-pair-hardcoded": "sandbox/prod SaaS tenant pair hardcoded",
-    "bot-launch-param": "deeplink launches bot with controllable params",
+    "bot-launch-param": "deeplink launches embedded bot with controllable params",
     "secret-in-bundle": "secret-shaped material in shipped bundle",
 }

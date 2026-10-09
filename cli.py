@@ -129,6 +129,12 @@ def _build_parser() -> argparse.ArgumentParser:
     p_dl.add_argument("--owned", default="",
                       help="comma-separated owned hosts")
 
+    p_chain = sub.add_parser("chain",
+                             help="compose findings into chain verdicts")
+    p_chain.add_argument("url_or_file")
+    p_chain.add_argument("--capture", default="",
+                         help="runtime-capture file (msgcap/beacon text)")
+
     return ap
 
 
@@ -423,6 +429,77 @@ def main(argv: list[str] | None = None) -> int:
             for url, params in list(tp.items())[:6]:
                 print(f"    {url} <- {', '.join(params[:8])}")
         return 0
+
+    if a.cmd == "chain":
+        from core import chain_verdict as CV
+        from core import proof_gate as PG
+        from core.lanes_jsdeep import mine_bundle, summarize, tenant_pairs
+        from core.lanes_security import classify_handler
+        from core.weakchecks import classify_handler as wc_classify
+        p = Path(a.url_or_file)
+        if p.exists():
+            text = p.read_text(encoding="utf-8", errors="replace")
+            label = str(p)
+        else:
+            r = vmbridge.run(f"curl -s -m 15 {a.url_or_file}")
+            if not (r.ok and r.output):
+                print(f"[chain] cannot read {a.url_or_file}",
+                      file=sys.stderr)
+                return 1
+            text = r.output
+            label = a.url_or_file
+        kinds: set[str] = set()
+        fs = mine_bundle(text)
+        kinds_sum = summarize(fs)
+        if kinds_sum.get("tenant-saas", 0):
+            if tenant_pairs(fs):
+                kinds.add("tenant-pair-hardcoded")
+        if kinds_sum.get("scheme-allowlist", 0):
+            kinds.add("custom-scheme-registered")
+        if kinds_sum.get("deeplink-builder", 0):
+            kinds.add("deeplink-taint-params")
+        if kinds_sum.get("getter-array", 0):
+            kinds.add("bot-launch-param")
+        if kinds_sum.get("wildcard-postmessage", 0):
+            kinds.add("embeds-attacker-frame")
+        pm = classify_handler(text)
+        if pm.pattern in ("P1", "P2"):
+            kinds.add("handler-weak-origin")
+        wc = wc_classify(text)
+        if wc.weak:
+            kinds.add("handler-weak-origin")
+        if re.search(r"sanitizer|DOMParser|createElement", text):
+            pass  # sanitizer-fallthrough needs sanitizer_oracle lane
+        from core.sanitizer_oracle import analyze_sanitizer
+        try:
+            san = analyze_sanitizer(text)
+            if getattr(san, "verdict", "") == "FALLTHROUGH":
+                kinds.add("sanitizer-fallthrough")
+        except Exception:
+            pass
+        capture = ""
+        if a.capture:
+            cap = Path(a.capture)
+            capture = (cap.read_text(encoding="utf-8",
+                                     errors="replace")
+                       if cap.exists() else a.capture)
+        print(f"[chain] findings: {sorted(kinds)}")
+        verdict = CV.verdict_from_findings(kinds)
+        proof = PG.gate(verdict, capture)
+        print(PG.render_report(verdict, proof))
+        out = Path("runs") / "chain" / (Path(label).stem or "target")
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "chain-report.txt").write_text(
+            PG.render_report(verdict, proof), encoding="utf-8")
+        (out / "kinds.json").write_text(
+            json.dumps({"kinds": sorted(kinds),
+                        "goal": verdict.goal,
+                        "plan": list(verdict.plan),
+                        "severity": verdict.severity,
+                        "proven": proof.proven}), encoding="utf-8")
+        seal_res = evidence.seal(str(out), label="chain")
+        print(f"[chain] sealed {len(seal_res.files)} files -> {out}")
+        return 0 if verdict.reachable else 1
 
     return 2
 

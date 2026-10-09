@@ -1,6 +1,7 @@
 """Tests for kali_arsenal — 20+ scoped Kali-tool verbs (lab + mock VM)."""
 from __future__ import annotations
 
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -112,8 +113,14 @@ class TestRegistry(unittest.TestCase):
 
 
 class TestLiveVM(unittest.TestCase):
-    """LIVE VM validation: real inventory of the arsenal binaries."""
+    """LIVE VM validation: real inventory of the arsenal binaries.
+
+    Skipped unless BUCKY_LIVE_VM=1 — keeps the suite deterministic and
+    fast for the upgrade-gate (live inventory runs in CLI/flagship).
+    """
     def test_inventory_counts(self):
+        if not os.environ.get("BUCKY_LIVE_VM"):
+            self.skipTest("set BUCKY_LIVE_VM=1 for live VM inventory")
         import subprocess
         tools = sorted({v.tool for v in verbs().values()})
         probe = "; ".join(

@@ -1,0 +1,16 @@
+{
+  "label": "chain",
+  "sealed_at": "2026-10-09T07:31:22.616495+00:00",
+  "files": [
+    {
+      "file": "chain-report.txt",
+      "sha256": "4b30177d5bc29cdc4ef6a610c17df8927909b94f9193deb7433fdb9b0d077715",
+      "bytes": 946
+    },
+    {
+      "file": "kinds.json",
+      "sha256": "79af87e15756495010e25d18c73d0c9f897b97f48db772daffd8ba3f06048277",
+      "bytes": 311
+    }
+  ]
+}

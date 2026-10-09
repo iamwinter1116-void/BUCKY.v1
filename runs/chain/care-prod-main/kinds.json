@@ -1,0 +1,1 @@
+{"kinds": ["bot-launch-param", "custom-scheme-registered", "deeplink-taint-params", "sanitizer-fallthrough", "tenant-pair-hardcoded"], "goal": "cross-tenant-session", "plan": ["deeplink-param-hijack", "sandbox-tenant-reach", "bot-session-hijack", "cross-tenant-session"], "severity": "critical", "proven": true}

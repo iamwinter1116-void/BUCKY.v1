@@ -1,0 +1,14 @@
+chain-verdict: CRITICAL (goal: cross-tenant-session)
+  step 1: deeplink-param-hijack
+  step 2: sandbox-tenant-reach
+  step 3: bot-session-hijack
+  step 4: cross-tenant-session
+  evidence-source: embeds-attacker-frame = target embeds cross-origin iframe content
+  evidence-source: handler-weak-origin = postMessage handler weak/absent origin check
+  evidence-source: sanitizer-fallthrough = sanitizer ELSE-branch allows any tag+attrs
+  evidence-source: custom-scheme-registered = custom URL scheme registered in app
+  evidence-source: deeplink-taint-params = scheme-builder query params attacker-set
+  evidence-source: tenant-pair-hardcoded = sandbox/prod SaaS tenant pair hardcoded
+  evidence-source: bot-launch-param = deeplink launches bot with controllable params
+  evidence-source: secret-in-bundle = secret-shaped material in shipped bundle
+[proof-gate] cross-tenant-session: PROVEN — critical CONFIRMED by runtime observation

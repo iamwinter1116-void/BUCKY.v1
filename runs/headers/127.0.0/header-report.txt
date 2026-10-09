@@ -1,0 +1,5 @@
+  [WSTG-CONF-07] ✗ HSTS: plain HTTP served (HSTS impossible)
+  [WSTG-SESS-02] ✓ cookies: no cookies set on this response
+  [WSTG-CLNT-09] ✓ CORS: no CORS headers (same-origin policy intact)
+  [WSTG-ERRH-01] ✓ error-handling: no stack/trace leakage detected
+  [WSTG-ATHN-02] ✓ default-cred-surface: no login surface on this response

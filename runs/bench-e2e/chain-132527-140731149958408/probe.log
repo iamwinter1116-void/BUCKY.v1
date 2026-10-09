@@ -1,0 +1,3 @@
+vuln-csp: script-src 'self' 'unsafe-inline' 'unsafe-eval' *.freshchat.com
+clean-csp: script-src 'nonce-r4nd0mN0nc3V4lu3'; frame-ancestors 'none'
+verdicts: B1 / clean

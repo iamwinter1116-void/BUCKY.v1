@@ -137,6 +137,13 @@ def _build_parser() -> argparse.ArgumentParser:
     p_chain.add_argument("--profile", default="",
                          help="campaign profile JSON (generic default)")
 
+    p_hdr = sub.add_parser("headers",
+                           help="analyze HTTP response headers (WSTG "
+                                "CONF-07/SESS-02/CLNT-09/ERRH-01/ATHN-02)")
+    p_hdr.add_argument("url_or_file")
+    p_hdr.add_argument("--origin", default="",
+                       help="Origin header value for CORS reflection test")
+
     return ap
 
 
@@ -506,6 +513,52 @@ def main(argv: list[str] | None = None) -> int:
         seal_res = evidence.seal(str(out), label="chain")
         print(f"[chain] sealed {len(seal_res.files)} files -> {out}")
         return 0 if verdict.reachable else 1
+
+    if a.cmd == "headers":
+        from core.lanes_headers import (analyze_response, failing, render)
+        import json as _json
+        p = Path(a.url_or_file)
+        if p.exists() and p.suffix == ".json":
+            snap = _json.loads(p.read_text(encoding="utf-8"))
+            headers = snap.get("headers", {})
+            body = snap.get("body", "")
+            label = str(p)
+        else:
+            # fetch via VM: headers + body in one GET
+            r = vmbridge.run(
+                f"curl -s -m 15 -D - {a.url_or_file} | head -c 60000")
+            if not (r.ok and r.output):
+                print(f"[headers] cannot read {a.url_or_file}",
+                      file=sys.stderr)
+                return 1
+            raw = r.output
+            headers: dict[str, str] = {}
+            body = raw
+            sep = "\r\n\r\n" if "\r\n" in raw else "\n\n"
+            split = raw.split(sep, 1)
+            split = raw.split(sep, 1)
+            if len(split) == 2:
+                for line in split[0].splitlines():
+                    if ":" in line:
+                        k, v = line.split(":", 1)
+                        headers[k.strip()] = v.strip()
+                body = split[1]
+            label = a.url_or_file
+        fs = analyze_response(headers, body,
+                              origin=a.origin,
+                              is_https=a.url_or_file.startswith("https"))
+        print(f"[headers] {label}: {len(fs)} checks, "
+              f"{len(failing(fs))} actionable")
+        print(render(fs))
+        if failing(fs):
+            out = Path("runs") / "headers" / (
+                Path(label).stem or "target")
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "header-report.txt").write_text(render(fs),
+                                                   encoding="utf-8")
+            seal_res = evidence.seal(str(out), label="headers")
+            print(f"[headers] sealed {len(seal_res.files)} files -> {out}")
+        return 0
 
     return 2
 

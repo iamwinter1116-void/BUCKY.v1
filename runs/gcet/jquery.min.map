@@ -1,0 +1,1711 @@
+    <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>G H Patel College of Engineering & Technology</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <!-- News and Events -->
+        <link rel="stylesheet" href="assets/css/style2.css" />
+        <!-- Fancy box starts-->
+        <link rel="stylesheet" href="assets/css/fancybox.css" />
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#basic").modal('show');
+            });
+        </script>
+
+        <!-- Favicon -->
+<link href="assets/img/gcet.ico" rel="shortcut icon">
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+<!-- Template CSS -->
+<link rel="stylesheet" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/font-awesome.css">
+<link rel="stylesheet" href="assets/css/nexus.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" href="assets/css/custom.css">
+<link rel="stylesheet" href="assets/css/event.css">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+ <!-- Resource style -->
+<!-- Google Fonts-->
+<link rel="stylesheet" href="assets/css/gcetfont.css">
+<link rel="stylesheet" href="assets/css/custom.min.css"><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97619420-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+        <style>
+
+            * {
+                box-sizing: border-box;
+            }
+            .open-button {
+
+                background-color: #3B5998;
+                color: white;
+                padding: 16px 20px;
+                border: none;
+                cursor: pointer;
+                opacity: 0.8;
+                position: fixed;
+                bottom: 23px;
+                right: 28px;
+                width: 280px;
+
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+                z-index: 1000;
+            }
+
+
+            .icon-bar {
+                position: fixed;
+                top: 60.5%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+                z-index: 1000;
+
+            }
+
+            .icon-bar a {
+                display: block;
+                text-align: center;
+                padding: 16px;
+                transition: all 0.3s ease;
+                color: white;
+                font-size: 20px;
+            }
+
+            .icon-bar a:hover {
+                background-color: #3ca082;
+            }
+
+            .facebook {
+                background: #3B5998;
+                color: white;
+            }
+
+            .twitter {
+                background: #55ACEE;
+                color: white;
+            }
+
+            .google {
+                background: #dd4b39;
+                color: white;
+            }
+
+            .linkedin {
+                background: #007bb5;
+                color: white;
+            }
+
+            .youtube {
+                background: #bb0000;
+                color: white;
+            }
+            .whatsapp {
+                background:#24D366;
+                color: white;
+                margin:0px;
+
+            }
+            .content {
+                margin-left: 75px;
+
+            }
+
+            .state{
+                background-color:#f5c255;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+                font-size: 1.2rem;
+                font-weight: 300;
+            }
+
+
+
+
+
+            .cvmu-floating-apply-btn {
+                position: fixed;
+                right: -77px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                z-index: 9999;
+                transition: all 0.3s ease;
+            }
+            .cvmu-apply-img {
+                width: 200px;
+                height: auto;
+                transform: rotate(-90deg);
+                transition: all 0.3s ease;
+                filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+            }
+            .cvmu-floating-apply-btn:hover .cvmu-apply-img {
+                transform: rotate(-90deg) scale(1.05);
+                filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
+            }
+            @media (max-width: 768px) {
+                .cvmu-floating-apply-btn {
+                    right: -60px;
+                }
+                .cvmu-apply-img {
+                    width: 150px;
+                }
+            }
+            @media (max-width: 480px) {
+                .cvmu-floating-apply-btn {
+                    right: -40px;
+                }
+                .cvmu-apply-img {
+                    width: 130px;
+                }
+            }
+
+
+        </style>
+
+    </head>
+    <body style="background:white;">
+
+        <div class="icon-bar">
+            <a href="https://www.facebook.com/share/16EhtviKRR/" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a> 
+            <a href="https://twitter.com/GCET_Official" class="twitter"><i class="fa fa-twitter" target="_blank"></i></a> 
+            <a href="https://www.instagram.com/gcet_official/" class="google"><i class="fa fa-instagram" target="_blank"></i></a> 
+            <a href="https://www.linkedin.com/in/gcet-vallabh-vidyanagar-177aa31a0/" class="linkedin" target="_blank"><i class="fa fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/channel/UCWul6IdyjqSlYpG4NBAG0FA/featured?view_as=subscriber" class="youtube" target="_blank"><i class="fa fa-youtube"></i></a> 
+            <a href="https://wa.me/message/EKN625S5GSN3K1" class="whatsapp" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                    </svg>
+                </i></a> 
+        </div>
+
+        <!-- CVMU Apply Now Floating Button -->
+        <div class="cvmu-floating-apply-btn" onclick="window.open('https://admissions.cvmu.edu.in', '_blank')">
+            <img src="https://cvmu.edu.in/assets/images/mba/apply.png" alt="Apply Now" class="cvmu-apply-img" />
+        </div>
+        <!-- CVMU Apply Now Floating Button -->
+
+
+        <!-- Admission Popup Start
+
+        <div class="modal fade" id="basic" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
+
+                    -- Pop Up Header Start --
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <div class="container no-padding">
+
+                            <div class="row">
+
+
+                                <div class="col-sm-2 col-xs-4">
+                                    <img class="img-responsive" align="right" src="assets/img/gcet_img/CVM_Logo.png"
+                                         height="100%" width="100%" style="margin-top: 10px;" />
+                                </div>
+
+
+
+                                <div class="col-sm-8 col-xs-12">
+
+                                    <center>
+                                        <h2 style="vertical-align: middle; margin-top: 16px;">
+                                            <font style="font-family: Georgia, serif;">The Charutar Vidya Mandal (CVM) University</font>
+                                        </h2>
+                                    </center>
+                                    <center>
+                                        <h2 align="center" style="color: blue; margin-top: 20px;"> <b>Admission Inquiry
+                                                2026-27</b> </h2>                               
+                                    </center>
+                                    <center>
+                                        <p style="COLOR:#33747a; font-size: 18px;">For admission related inquiry call us on :
+                                            <br>Mobile: +91 932 879 1213<br>Phone: 02692-231651</p>
+                                    </center>
+                                </div>
+                                <div class="col-sm-2 col-xs-4 ">
+                                    <img class="img-responsive" align="left" src="assets/img/gcet_img/GCET_Logo.png"
+                                         height="100%" width="100%" style="margin-top: 0px;" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                  -- Pop Up Header End --
+                    
+                    
+                  
+                    
+                    
+                                        <div class="modal-body"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                        <div class="panel-body" style="padding-bottom:5px; margin: 5px;">
+                            <div class="row">
+                                <div class="col-md-12">
+
+
+                                <div class="alert alert-danger alert-dismissible fade in col-md-12" role="alert">
+                                        Admission Guidelines : <a href="uploads/admission/Admission Counselling Guidelines 2026.pdf" class="blink blink-two" target="blank"><strong>CLICK HERE</strong></a>
+                                    </div>
+
+                                    <div class="alert alert-info alert-dismissible fade in col-md-12" role="alert">
+
+                                        </button> To apply for <strong>B.Tech. Vacant Quota Admissions</strong> : <a
+                                            href="https://forms.gle/52w97YadkaCsvpM99" class="blink blink-two" target="blank"><strong>CLICK HERE</strong></a>
+                                            
+                                            <br><br><b>KEY DATES:</b><br>
+                                        <table>
+                                            <tr>
+                                                <th>Activity</th>
+                                                <th>&emsp;Date(s)</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Date for Applying:&emsp;</td>
+                                                <td>&emsp;02/08/2026</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Merit declaration:&emsp;</td>
+                                                <td>&emsp;03/08/2026</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Online Counselling:&emsp;</td>
+                                                <td>&emsp;04/08/2026</td>
+                                            </tr>
+                                            
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="alert alert-danger alert-dismissible fade in col-md-12" role="alert">
+                                         </button> To apply for <strong>D2D Vacant Quota Admissions</strong> : <a
+                                            href="https://forms.gle/uMkMCwzPGQHMV2ni8" class="blink blink-two" target="blank"><strong>CLICK HERE</strong></a>
+                                        <br><br>
+                                        <b>KEY DATES:</b><br>
+                                        <table>
+                                            <tr>
+                                                <th>Activity</th>
+                                                <th>&emsp;Date(s)</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Date for Applying:&emsp;</td>
+                                                <td>&emsp;01/08/2026</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Merit declaration:&emsp;</td>
+                                                <td>&emsp;02/08/2026</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Online Counselling:&emsp;</td>
+                                                <td>&emsp;03/08/2026</td>
+                                            </tr>
+                                            
+                                        </table>
+                                    </div>
+                                
+                                    
+                                
+                                </div>
+
+                                                                
+                            </div>
+                        </div>
+
+                    </div>
+                   
+                </div>
+            </div>
+
+        </div>
+        
+      --  Admission Popup End -->
+
+
+
+
+        
+
+<style>
+    .blink {
+        animation: blinker 0.7s linear infinite;
+        color:  #ff6600;
+
+
+
+        font-family: sans-serif;
+    }
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+    .blink-one {
+        animation: blinker-one 1s linear infinite;
+    }
+    @keyframes blinker-one {
+        0% {
+            opacity: 0;
+        }
+    }
+    .blink-two {
+        animation: blinker-two 1.4s linear infinite;
+    }
+    @keyframes blinker-two {
+        50% {
+            opacity: 0;
+        }
+    }
+</style>
+
+
+
+
+<div id="header"> 
+    <div class="container no-padding">
+
+        <div class="row" style="margin-top:5px;"> 
+            <div class="col-sm-2 col-xs-4">
+                <img class="img-size" src="assets/img/gcet_img/left_logo.png" />
+
+            </div>
+
+
+            <div  class="col-sm-8 col-xs-12">
+
+                <p id="pCollegeTitle" align="center">G H Patel College of Engineering &amp; Technology </p>
+                <p id="pCollegeSubTitle" align="center" > (The Charutar Vidya Mandal (CVM) University) </p>
+            </div>
+            <div class="col-sm-2 col-xs-4 visible-lg visible-md visible-sm">
+                <img class="img-responsive" align="right" src="assets/img/gcet_img/right_logo.png" />
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- End Header --> 
+<!-- Top Menu -->
+<div id="hornav" class="bottom-border-shadow visible-lg visible-md">
+    <div class="container no-padding border-bottom">
+        <div class="row" >
+            <div class="col-md-12 col-sm-12 no-padding ">
+                <div class="visible-lg">
+                    <ul id="hornavmenu" class="nav navbar-nav">
+                        <li> <a href="index.php" ></a> </li>
+                        <li> <a href="index.php" class="fa-home"  style="font-size:12px !important;"><font color="white">Home</font></a> 
+                        </li>
+
+                        <li> <span class="fa-globe" style="font-size:12px !important;">Discover GCET</span>
+                            <ul>
+                                <li> <a href="gcet_trust.php">About Management</a> </li>
+                                <li> <a href="institute.php">About Institute</a> </li>
+                                <li> <a href="gcet_chairman.php">Chairman's Message</a> </li>
+                                <li> <a href="gcet_principal.php">Principal's Message</a> </li>
+                                <li> <a href="gcet_management.php">Board of Management</a> </li>
+                                <li> <a href="gcet_mandatory.php">Mandatory Disclosure</a> </li>
+                                <li> <a href="aicte.php">AICTE Approval</a> </li>
+                                <li> <a href="nba.php">NBA Status</a> </li>
+                                <li> <a href="audited_stmt.php">Audited Statements</a> </li>
+                                <li> <a href="gcet_regulations.php">Academic Regulations</a> </li>
+                            </ul>
+                        </li>
+
+                        <li> <a href="admission_home.php" class="fa-font" style="font-size:12px !important;"><font color="white">Admissions</font></a></li>
+                        <li> <span class="fa-briefcase" style="font-size:12px !important;">Department</span>
+
+                            <ul>
+                                <li> <a href="depthome.php?deptid=VUdDSA==">Chemical Engineering</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdJVA==">Information Technology</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdJVA==">Computer Science and Engineering (IOT)</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdNRQ==">Mechanical Engineering</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdFQw==">Electronics & Communication</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdFQw==">Information & Communication Technology</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdNQw==">Mechatronics Engineering</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdDUA==">Computer Engineering</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdDUA==">Computer Science and Design</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdFRQ==">Electrical Engineering</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdDRQ==">Civil Engineering</a> </li>
+                                <li> <a href="depthome.php?deptid=VUdBU0g=">Applied Science & Humanities</a> </li>
+                            </ul>
+                        </li>
+
+                        <li> <a href="rd_home.php" class="fa-search" style="font-size:12px !important;"><font color="white">R & D</font></a>
+
+                        </li>
+                        <li> <a href="placement_home.php" class="fa-thumbs-o-up" style="font-size:12px !important;"><font color="white">Placement</font></a>
+
+                        </li>
+                        <li> <a href="https://alumni.cvmu.edu.in" class="fa-group" style="font-size:12px !important;" target="blank"><font color="white">Alumni</font></a>
+
+                        </li>
+
+
+
+                        <li> <span class="fa-gears" style="font-size:12px !important;">Activities</span>
+                            <ul>
+                                <li> <a href="ie_home.php?deptid=SUU=">Innovation & Entrepreneurship</a> </li>
+                                <li><a href="ssip_home.php?deptid=U1NJUA==">Student Start-up and Innovation</a> </li>
+                                <!--<li><a href="idea_home.php?deptid=SURFQQ==">AICTE Idea Lab</a> </li>-->
+                                <li><a href="uba_home.php?deptid=VUJB">Unnant Bharat Abhiyan</a> </li>
+                                <li><a href="prof_society.php">Professional Society</a> </li>
+                                <li><a href="audit_home.php">Audit courses</a> </li>
+                                <li><a href="certificate_home.php">Certification courses</a> </li>
+                                <li> <a href="iiic_home.php?deptid=SUlJQw==">Industry Institute Interaction</a> </li>
+                                <li> <a href="gcetmagazine18.php">College Magazine</a> </li>
+                                <li> <a href="grm.php">Grievance Cell</a> </li>
+                                <li> <a href="icc.php">Internal Complaints Committee</a> </li>
+                                <li> <a href="counselling_home.php">Student Counseling</a> </li>
+                                <li> <a href="NCC_home.php">NCC</a> </li>
+                                <li> <a href="ps_home.php?deptid=V0VD">Women Empowerment Cell</a> </li>                                
+                                <li> <a href="scst_home.php">SEDGs Cell, CVMU</a> </li>
+                                <li> <a href="obc_home.php">SC/ST/OBC Grievance Cell, CVMU</a> </li>
+                                <li><a href="ragging_home.php">Anti Ragging</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li> <a href="idea_home.php?deptid=SURFQQ==" class="fa-lightbulb-o" style="font-size:12px !important;"><font color="white">AICTE Idea Lab</font></a>
+
+                        </li>
+                        <li> <a href="ssip_home.php?deptid=U1NJUA==" class="fa-lightbulb-o" style="font-size:12px !important;"><font color="white">SSIP</font></a>
+
+                        </li>
+
+                        <li> <span class="fa-institution" style="font-size:12px !important;">Campus</span>
+                            <ul>
+                                <li> <a href="campus_library.php">GCET Library</a> </li>
+                                <li> <a href="campus_ghostel.php">GCET Girl's Hostel</a> </li>
+                                <li> <a href="campus_bhostel.php">GCET Boy's Hostel</a> </li>
+                                <li> <a href="campus_audi.php">Auditorium</a> </li>
+                                <li> <a href="campus_cafeteria.php">Cafeteria</a> </li>
+                                <li> <a href="gallery.php">Photo Gallery</a> </li>
+                            </ul>
+                        </li>
+
+
+                        <li> <a href="contactus.php" class="fa-phone" style="font-size:12px !important;"><font color="white">Contact Us</font></a>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>        <!-- End Header -->
+        <!-- === BEGIN IMAGE SLIDE SHOW === -->
+        <div id="slideshow" class="bottom-border-shadow" >
+            <div class="container no-padding bottom-border">
+                <div class="row">
+                    <!-- Carousel Slideshow -->
+                    <div id="carousel-example" class="carousel slide" data-ride="carousel"  >
+                        <!-- Carousel Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example" data-slide-to="1"></li>
+                            <li data-target="#carousel-example" data-slide-to="2"></li>
+                            <li data-target="#carousel-example" data-slide-to="3"></li>
+                            <li data-target="#carousel-example" data-slide-to="4"></li>
+                            <li data-target="#carousel-example" data-slide-to="5"></li>
+                            <li data-target="#carousel-example" data-slide-to="6"></li>
+                            <li data-target="#carousel-example" data-slide-to="7"></li>
+                            <li data-target="#carousel-example" data-slide-to="8"></li>
+                            <li data-target="#carousel-example" data-slide-to="9"></li>
+                            <li data-target="#carousel-example" data-slide-to="10"></li>
+                            <li data-target="#carousel-example" data-slide-to="11"></li>
+                            <li data-target="#carousel-example" data-slide-to="12"></li>
+                            <li data-target="#carousel-example" data-slide-to="13"></li>
+                            <li data-target="#carousel-example" data-slide-to="14"></li>
+                            <li data-target="#carousel-example" data-slide-to="15"></li>
+                            <li data-target="#carousel-example" data-slide-to="16"></li>
+                            <li data-target="#carousel-example" data-slide-to="17"></li>
+                            <li data-target="#carousel-example" data-slide-to="18"></li>
+                            <li data-target="#carousel-example" data-slide-to="19"></li>
+                            <li data-target="#carousel-example" data-slide-to="20"></li>
+
+                        </ol>
+
+                        <!-- End Carousel Indicators -->
+                        <!-- Carousel Images -->
+                        <div class="carousel-inner" style="max-height:100%;width:100%;">
+                            <div class="item active"> <img src="assets/img/slideshow/NBA3.png" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/NBA4.png" width="100%" > </div>
+                            <div class="item "> <img src="assets/img/slideshow/cvm.webp" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/mgmotors.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/plac23.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/GCET_Amazon_Banner.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/idea_lab.jpg" width="100%" > </div>
+                            <div class="item "> <img src="assets/img/slideshow/upstox-GCET.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/robo.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/robot.jpg" width="100%" > </div>                            
+                            <div class="item"> <img src="assets/img/slideshow/Industrial.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/ieee1.webp" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/placement_exxact.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/robofest.png" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/robofest.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/c2c.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/28th Annual Day.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/imaze23.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/clubs.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/sports.jpg" width="100%" > </div>
+                            <div class="item"> <img src="assets/img/slideshow/cultural.png" width="100%" > </div>
+
+                        </div>
+
+                        <!-- End Carousel Images -->
+                        <!-- Carousel Controls -->
+                        <a class="left carousel-control" href="#carousel-example" data-slide="prev"> 
+                            <span class="glyphicon glyphicon-chevron-left"></span> 
+                            <span class="sr-only">Previous</span>
+                        </a> 
+                        <a class="right carousel-control" href="#carousel-example" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span> 
+                            <span class="sr-only">Next</span>
+                        </a>
+                        <!-- End Carousel Controls -->
+                    </div>
+                    <!-- End Carousel Slideshow -->
+                </div>
+            </div>
+        </div>
+        <!-- === END IMAGE SLIDE SHOW === -->
+
+        <div  style="color:#ea6645;;font-size:15px;margin-left:5%;">
+            <marquee onmouseover="this.stop();" onmouseout="this.start();">
+                Accredited Undergraduate Programs: Chemical Engineering, Computer Engineering, Electrical Engineering, Electronics and Communication and Mechatronics Engineering have been accredited by National Board of Accreditation (NBA), New Delhi for three years 2025-26, 2026-27 and 2027-28</marquee> 
+            <!-- <p style="text-align: center">Watch 23rd Annual Day Celebration Live at 4:30 PM Onwards : <a href="http://www.youtube.com/watch?v=VnEOp2SCCzM" target="_blank"> Click here</a></p> -->
+        </div>
+        <!-- === PRIMARY PANAL SECTION === -->
+        <div id="icons" class="bottom-border-shadow">
+            <div class="container "  >
+                <div class="row padding-top-30 padding-bottom-60">
+                    <!-- Start News Box -->
+                    <div class="col-md-5" style="padding-left:10%;">
+                        <section class="news-small" id="news-small" >
+                            <header>
+                                <h3><font style="border-bottom: 3px solid grey;">News</font></h3>
+                            </header>
+                            <br>
+                            <div class="section-content">
+                                                                        <article>
+                                            <figure class="date"><i class="fa fa-calendar"></i>04 April 2025</figure>
+                                                                                        <header style="overflow: hidden; width: 100%;">
+                                                <a href="news_more.php?year=MjAyNA==" >
+                                                    <p id="p1" style="text-align: justify; line-height:140%;">
+                                                        29th Annual Day                                                    </p>
+                                                </a>
+                                            </header>
+                                        </article>
+                                                                                <article>
+                                            <figure class="date"><i class="fa fa-calendar"></i>01 February 2025</figure>
+                                                                                        <header style="overflow: hidden; width: 100%;">
+                                                <a href="news_more.php?year=MjAyNA==" >
+                                                    <p id="p1" style="text-align: justify; line-height:140%;">
+                                                        MoU between EC Department & ANTS Global Systems Pvt. Ltd                                                    </p>
+                                                </a>
+                                            </header>
+                                        </article>
+                                                                                <article>
+                                            <figure class="date"><i class="fa fa-calendar"></i>01 February 2025</figure>
+                                                                                        <header style="overflow: hidden; width: 100%;">
+                                                <a href="news_more.php?year=MjAyNA==" >
+                                                    <p id="p1" style="text-align: justify; line-height:140%;">
+                                                        MoU ECD GCET and Indeeksha Digital Pvt. Ltd on 1st Feb 2025                                                    </p>
+                                                </a>
+                                            </header>
+                                        </article>
+                                                                        <!-- /article -->
+                            </div>
+                            <!-- /.section-content -->
+                            <a href="news_more.php?year=MjAyMQ==" class="read-more stick-to-bottom">&nbsp;&nbsp;&nbsp;&nbsp; All News</a>
+                        </section>
+                        <!-- /.news-small -->
+                    </div>
+                    <!-- End News Box -->
+                    <!-- Start Event Box -->
+                    <div class="col-md-4" >
+                        <section class="events small" id="events-small" >
+                            <header>
+                                <h3><font style="border-bottom: 3px solid grey;">Events</font></h3>
+                            </header>
+                            <div class="section-content">
+                                                                        <article class="event nearest">
+                                            <figure class="date" height="15%">
+                                                <div class="month" id="dmain">October                                                </div>
+                                                <div class="day" id="dmain">
+                                                    06                                                </div>
+                                            </figure>
+                                            <aside>
+                                                <header>
+                                                                                                                <a href="uploads/eventfile/2026/ugec20260928051355-notice2026-10-06-beyond-classroom.pdf" target="_blank">
+                                                                                                                                <p style="text-align: justify; height:45px; line-height:140%;" id="dmain">
+                                                                    One Day Special Technical Sessions on "BEYOND CLASSROOM | Industry Trends & Career Opportunities"
+                                                                <p style="color: #767676; font-size: 12px;">Department of Electronics & Communication Engineering</p>
+
+                                                                </p>
+
+                                                            </a>
+                                                            </header>
+                                                            </aside>
+                                                            </article>
+                                                                                                                        <article class="event nearest-second">
+                                                                <figure class="date" height="15%">
+                                                                    <div class="month" id="dmain">
+                                                                        October                                                                    </div>
+                                                                    <div class="day" id="dmain">
+                                                                        06                                                                    </div>
+                                                                </figure>
+                                                                <aside>
+                                                                    <header>
+                                                                                                                                                        <a href="uploads/eventfile/2026/ugec20261003082719-notice2026-10-06-chipcraft-2026_1.pdf" target="_blank">
+                                                                                    
+                                                                                    <p style="text-align: justify; height:45px; line-height:140%;" id="dmain">
+                                                                                        Chip Crafts 2026 : Project - Poster Presentation                                                                                    <p style="color: #767676; font-size: 12px;">Department of Electronics & Communication Engineering</p>
+                                                                                    </p></a>
+                                                                                </header>
+                                                                                </aside>
+                                                                                </article>
+                                                                                                                                                                <article class="event">
+                                                                                    <figure class="date" height="15%">
+                                                                                        <div class="month" id="dmain">September                                                                                        </div>
+                                                                                        <div class="day" id="dmain">
+                                                                                            28                                                                                        </div>
+                                                                                    </figure>
+                                                                                    <aside>
+                                                                                        <header>
+
+
+                                                                                                                                                                                                    <a href="#" target="_blank">
+                                                                                                                                                                                                                    <p style="text-align: justify; height:45px; line-height:140%;" id="dmain">
+                                                                                                             IGBC Celebration 2026                                                                                                        <p style="color: #767676; font-size: 12px;">Department of Civil Engineering</p>
+                                                                                                        </p></a>
+                                                                                                    </header>
+                                                                                                    </aside>
+                                                                                                    </article>
+                                                                                                                                                                                                </div>
+
+                                                                                            <a href="upcoming_events.php?year=2025" class="read-more stick-to-bottom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; More...</a>
+                                                                                            </section>
+                                                                                            <!-- /.events-small -->
+                                                                                            </div>
+                                                                                            <!-- End Event Box -->
+
+                                                                                            <!-- Start Important Link Box -->
+                                                                                            <div class="col-md-4 ">
+
+                                                                                                <div class="col-md-12">
+                                                                                                    <div class="headline">
+                                                                                                        <h3><font style="border-bottom: 3px solid grey;">Important Links</font></h3>
+                                                                                                        <br />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="idea_tender.php" title="Important Notices">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left;"><i class="fa fa-book"></i>&nbsp;Tender AICTE IDEA LAB</button>
+                                                                                                    </a>
+                                                                                                </div>                                                                                                
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="#" title="Time Table" target="blank">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-user"></i>&nbsp; <b class="blink blink-one"> Fees Payment</b></button>
+                                                                                                    </a>
+                                                                                                </div>
+
+
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="gcet_impnotices.php" title="Important Notices">
+                                                                                                        <button class="btn btn-b1" type="button" style="width: 100%; text-align: left;"><i class="fa fa-building"></i>&nbsp;Important Notices</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="gcet_calender.php" title="Academic Calendar">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-calendar"></i>&nbsp;Academic Calendar</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="past_events.php?year=2026" title="Media">
+                                                                                                        <button class="btn btn-b1" type="button" style="width: 100%; text-align: left"><i class="fa fa-users"></i>&nbsp;Past Events </button>
+                                                                                                    </a>
+                                                                                                </div> 
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="gcet_regulations.php" title="Academic Regulations">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-briefcase"></i>&nbsp;Academic Regulations</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="admission_circulars.php" title="Fees Structure">
+                                                                                                        <button class="btn btn-b1" type="button" style="width: 100%; text-align: left"><i class="fa fa-money"></i>&nbsp;Fees Structure</button>
+                                                                                                    </a>
+                                                                                                </div>
+
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="view_media.php" title="Anti-Ragging">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-camera"></i>&nbsp;Media</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="eminent.php" title="Eminent Personality Visited">
+                                                                                                        <button class="btn btn-b1" type="button" style="width: 100%; text-align: left"><i class="fa fa-user"></i>&nbsp;Eminent Personality Visited</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;"> 
+                                                                                                    <a href="nirf.php" title="NIRF" target="_blank"> 
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-book"></i>&nbsp;NIRF</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;"> 
+                                                                                                    <a href="uploads/implink/gsirf.pdf" title="GSIRF" target="_blank"> 
+                                                                                                        <button class="btn btn-b1" type="button" style="width: 100%; text-align: left"><i class="fa fa-book"></i>&nbsp;GSIRF</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="uploads/implink/ARIIA-2022 Report_GCET.pdf" title="ARIIA" target="_blank">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-book"></i>&nbsp;ARIIA-2022 
+                                                                                                            Report</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;"> 
+                                                                                                    <a href="https://samadhaan.ugc.ac.in/" title="Samadhaan" target="_blank"> 
+                                                                                                        <button class="btn btn-b1" type="button" style="width: 100%; text-align: left"><i class="fa fa-book"></i>&nbsp;UGC e-Samadhan Portal</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="col-md-12" style="margin-bottom: 10px;">
+                                                                                                    <a href="uploads/implink/Women_Helpline.jpeg" title="ARIIA" target="_blank">
+                                                                                                        <button class="btn btn-b2" type="button" style="width: 100%; text-align: left"><i class="fa fa-book"></i>&nbsp;24 X 7 Women Helpline No.</button>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <!-- End Important Link Box -->
+                                                                                            </div>
+                                                                                            </div>
+                                                                                            <!-- === END PRIMARY PANAL SECTION === -->
+
+
+
+                                                                                            </div>
+<!--
+                                                                                            <div class="row" style="position: relative;box-sizing: border-box;    border: 1px solid #dcdacb;
+                                                                                                 border-radius: 4px;
+                                                                                                 flex-wrap: nowrap;
+                                                                                                 align-items: flex-start;
+                                                                                                 padding: 4.4rem;background: white; margin-left: 80px;margin-right: 20px;;">
+                                                                                                <img src="uploads/news/minor.jpg"  >
+                                                                                            </div>
+
+-->
+
+                                                                                            <br/>
+
+                                                                                            <h2  class="heading" data-purpose="single-course-unit-title"><center>Research at GCET</center></h2>
+                                                                                            <div style="margin-left: 80px;margin-right: 45px;">
+                                                                                                <p>GCET emphasises research activities at all levels, including undergraduate, postgraduate and doctoral programmes. It has conducted several research projects funded by various funding agencies  and several industries. It is determined to emerge as a knowledge enterprise that is closely engaged in research and innovation.</p>
+                                                                                            </div>
+
+                                                                                            <div class="row" style="margin: 80px;">
+                                                                                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                                                                    <div class="alert alert-success alert-dismissible fade in" role="alert">
+                                                                                                        <div class="tile-stats">
+
+                                                                                                            <div  style="font-size: 40px; margin-bottom: 20px;"><center>
+
+                                                                                                                    16                                                                                                                </center></div>
+                                                                                                            <h3><center>Funded Research Projects</center></h3>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                                                                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+
+                                                                                                        <div class="tile-stats">
+
+                                                                                                            <div  style="font-size: 40px;margin-bottom: 20px;"><center>
+
+                                                                                                                    41
+                                                                                                                </center></div>
+                                                                                                            <h3><center>Industry Projects</center></h3>
+
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+
+
+                                                                                                <div class="animated flipInY col-lg-3 col-md-3  col-sm-12 col-xs-12">
+                                                                                                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                                                                                        <div class="tile-stats">
+
+                                                                                                            <div  style="font-size: 40px;margin-bottom: 20px;"><center>
+                                                                                                                    21
+                                                                                                                </center></div>
+                                                                                                            <h3 style="margin-left: 10px;z-index:15;"><center>Patent</center></h3>
+                                                                                                        <!--    <p><a href= "rd_patent.php"><center>Read more>></center></a></p>
+                                                                                                            -->
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="animated flipInY col-lg-3 col-md-3  col-sm-12 col-xs-12">
+                                                                                                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                                                                                        <div class="tile-stats">
+                                                                                                            <div  style="font-size: 40px;margin-bottom: 20px;"><center>113                                                                                                                </center></div>
+                                                                                                            <h3><center>Books Published</center> </h3>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <h2   data-purpose="single-course-unit-title" style="margin-left: 80px;margin-right: 45px; margin-top: 40px;margin-bottom: 60px;"> <center>SPONSORED PROJECTS  </center></h2>
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12 "   >
+                                                                                                    <div class="table" id="table" >
+
+                                                                                                        
+
+                                                                                                                <div class="blog-post padding-bottom-20" style="margin-bottom: 25px;box-shadow: 0px 0px 3px 1px #DDD;padding-left:25px;padding-right:25px; padding-top:10px;margin-left:80px;margin-right: 45px;">
+                                                                                                                    <div class="blog-item-header">
+                                                                                                                        <h3 class="padding-bottom-20" align="justify"> A NOVEL ECO-FRIENDLY HYBRID PROCESS FOR ENRICHMENT OF SODIUM LIGNOSULFONATE FROM DIGESTER BLACK LIQUOR OF PROSOPIS JULIFLORA HARD WOOD          </h3>
+                                                                                                                        <div class="clearfix"></div>
+
+                                                                                                                    </div>
+                                                                                                                    <div class="blog">
+                                                                                                                        <div class="clearfix"></div>
+                                                                                                                        <div class="blog-post-body row margin-top-15">
+                                                                                                                            <div class="col-md-4 col-sm-4 ">
+                                                                                                                                <img class="margin-bottom-20 " src="uploads/project/juliflora-sls.jpg"  alt="thumb1" STYLE="border: 4px solid #d7dfe0;">
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-7 col-sm-12">
+                                                                                                                                <p  style="text-align:justify;">In the proposed project the kraft black liquor obtained from the digestion of Prosopis juliflora hard wood, having concentration of around 12-15%, will be concentrated in an ultrafiltration (UF) process combined with a suitable prior treatment. The reject stream from UF, which is expected to have higher concentration will be fed to a double effect evaporator for further concentration up to more than 50%, and finally to a spray drier. The permeate stream from the UF containing much of alkalies and other soluble pulping chemicals will be reused for pulping. The scheme is expected to reduce the load on the evaporator with less overall energy consumption. It also leads to a zero liquid discharge plant. The ligosulphonate powdery solid obtained after spray drying has the potential to be used as filler in the ceramic, concrete, rubber manufacturing as well as carrier in pesticides making.  </p>
+                                                                                                                                <!-- Read More -->
+                                                                                                                                <a href="dproject.php?pid=MTc=" class="btn btn-primary">Read More
+                                                                                                                                    <i class="icon-chevron-right readmore-icon"></i>
+                                                                                                                                </a>
+                                                                                                                                <a href="rd_project.php" class="btn btn-sucess">All Projects 
+                                                                                                                                    <i class="icon-chevron-right readmore-icon"></i>
+                                                                                                                                </a>
+
+                                                                                                                                <!-- End Read More -->
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>							
+                                                                                                                </div>
+
+
+
+
+                                                                                                                
+                                                                                                        <!-- End News Item -->
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+
+                                                                                            <h2   data-purpose="single-course-unit-title" style="margin-left: 80px;margin-right: 45px; margin-top: 40px;margin-bottom: 60px;"> <center>Awards and Achievements  </center></h2>
+
+                                                                                            <div class="state">
+                                                                                                <div class ="row">
+                                                                                                    <div id="carousel-audit1" class="carousel slide" data-ride="carousel" style="margin-left: 80px;margin-right: 45px;">
+
+
+
+                                                                                                        <!-- Carousel indicators -->
+
+                                                                                                        <!-- Wrapper for carousel items -->
+                                                                                                        <div class="carousel-inner">
+                                                                                                            <div class="item active">
+                                                                                                                                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="padding:30px;">	
+
+
+                                                                                                                        <figure  >
+
+                                                                                                                            <a href="achivement.php?year=MjAyMg==" target="_blank"><figure>
+                                                                                                                                    <img src="uploads/acheivement/2022/PHOTO-2022-07-24-15-13-07.jpg" height="194px" width = "360px"  class="rounded" style ="border: 4px solid #d7dfe0; "/>
+                                                                                                                                </figure>
+                                                                                                                            </a>
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;color: #333333;padding-top:20px;text-align:justify; "> A GRANTED PATENT BY IPR GOVT. OF INDIA FOR A PERIOD OF 20 YEARS  </h5>
+
+                                                                                                                        </figure>
+
+
+                                                                                                                    </div>
+
+
+                                                                                                                                                                                                                                        <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="padding:30px;">	
+
+
+                                                                                                                        <figure  >
+
+                                                                                                                            <a href="achivement.php?year=MjAyMg==" target="_blank"><figure>
+                                                                                                                                    <img src="uploads/acheivement/2021/ugit20210819013333-news.jpg" height="194px" width = "360px"  class="rounded" style ="border: 4px solid #d7dfe0; "/>
+                                                                                                                                </figure>
+                                                                                                                            </a>
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;color: #333333;padding-top:20px;text-align:justify; "> GCET ROBOTIC GROUP TEAM GCET ROBOCON HAS WON IHFC AWARD(I-HUB FOUNDATION FOR COBOTICS, IIT DELHI) IN FINAL STAGE OF DD ROBOCON 2021 ON 18TH AUGUST 2021. THE TEAM RECEIVE THE A TROPHY AND ₹50000 FROM IHFC. </h5>
+
+                                                                                                                        </figure>
+
+
+                                                                                                                    </div>
+
+
+                                                                                                                                                                                                                                        <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="padding:30px;">	
+
+
+                                                                                                                        <figure  >
+
+                                                                                                                            <a href="achivement.php?year=MjAyMg==" target="_blank"><figure>
+                                                                                                                                    <img src="uploads/acheivement/2021/img-20210216-wa0026.jpg" height="194px" width = "360px"  class="rounded" style ="border: 4px solid #d7dfe0; "/>
+                                                                                                                                </figure>
+                                                                                                                            </a>
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;color: #333333;padding-top:20px;text-align:justify; "> THIRD YEAR STUDENTS OF MECHANICAL DEPARTMENT BAGGED GTU SSIP GRANT OF 1.46 LAKHS   </h5>
+
+                                                                                                                        </figure>
+
+
+                                                                                                                    </div>
+
+
+                                                                                                                                                                                                                                        <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="padding:30px;">	
+
+
+                                                                                                                        <figure  >
+
+                                                                                                                            <a href="achivement.php?year=MjAyMg==" target="_blank"><figure>
+                                                                                                                                    <img src="uploads/acheivement/2020/pranav.jpg" height="194px" width = "360px"  class="rounded" style ="border: 4px solid #d7dfe0; "/>
+                                                                                                                                </figure>
+                                                                                                                            </a>
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;color: #333333;padding-top:20px;text-align:justify; "> PRANAV PATEL SECURED THE FIRST RUNNER-UP POSITION  IN INTERNATIONAL ROBOCON , INDIA    </h5>
+
+                                                                                                                        </figure>
+
+
+                                                                                                                    </div>
+
+
+                                                                                                                    
+
+                                                                                                                <P ALIGN ="RIGHT"><span><A HREF =  "achivement.php?year=MjAyMQ==" style="color:white;   font-weight:500; letter-spacing: .3px;font-family: montserrat,sans-serif!important;">CLICK HERE FOR MORE ACHIEVEMENT <i class="fas fa-arrow-right"></i>
+                                                                                                                        </A>  </span>
+                                                                                                                </p>
+
+                                                                                                            </div>
+
+
+
+
+                                                                                                        </div>
+
+
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div id="slideshow" class="margin-vert-30" style="margin-left: 45px;margin-right: 45px;" >
+                                                                                                <div class="container no-padding  ">
+                                                                                                    <div class="row ">                                                                                      
+
+                                                                                                        <div class="horizontal-box align-items-spacebetween "><span><h3 class="collection-name" style="margin: 10px;">Audit  Courses : <a href="audit_courses.php">All Courses</a>  </h3>
+
+                                                                                                            </span></div> <br/>
+
+                                                                                                        <div id="carousel-audit" class="carousel slide" data-ride="carousel">
+
+
+
+                                                                                                            <!-- Carousel indicators -->
+                                                                                                            <ol class="carousel-indicators">
+                                                                                                                <li data-target="#carousel-audit" data-slide-to="0" class="active"></li>
+                                                                                                                <li data-target="#carousel-audit" data-slide-to="1"></li>
+
+                                                                                                            </ol>
+                                                                                                            <!-- Wrapper for carousel items -->
+                                                                                                            <div class="carousel-inner">
+                                                                                                                <div class="item active">
+
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=MTU=" target="_blank">
+                                                                                                                                <img src="images/machine.jpg" >
+
+
+
+
+                                                                                                                            </a>
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;"> Machine learning </h5>
+
+                                                                                                                        </figure>
+                                                                                                                        <p ><span> <i class="fa fa-clock-o "></i> 25 Hours </span>
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=MQ==" target="_blank">
+                                                                                                                                <img src="images/ux_design.jpg"  >
+                                                                                                                            </a>
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;">UX Design and Design Thinking </h5>
+
+
+
+
+                                                                                                                        </figure>
+                                                                                                                        <p ><span><i class="fa fa-clock-o "></i> 10 Hours </span>
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=OA==" target="_blank">
+                                                                                                                                <img src="images/robotics.jpg"  >
+
+
+                                                                                                                            </a>
+                                                                                                                        </figure>
+                                                                                                                        <h5 class="margin-bottom-10">Robotics</h5>
+
+
+
+                                                                                                                        <p ><span> <i class="fa fa-clock-o"></i>10 Hours </span><br />
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=Mg==" target="_blank">
+                                                                                                                                <img src="images/math_and_logic.jpg"  >
+
+
+                                                                                                                            </a>
+
+
+                                                                                                                            <h5 class="margin-bottom-10">Mathematical Methods Applied to Engineering </h5>
+                                                                                                                        </figure>
+
+                                                                                                                        <p ><span><i class="fa fa-clock-o"></i> 20 Hours </span>
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+
+
+
+                                                                                                                </div>
+
+
+
+                                                                                                                <div class="item ">
+
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=MTI=" target="_blank">
+                                                                                                                                <img src="images/iot.jpg"  >
+
+
+                                                                                                                            </a>  </figure>
+                                                                                                                        <h5 class="margin-bottom-10">Advance IoT Applications </h5>
+                                                                                                                        <p ><span> <i class="fa fa-clock-o"></i> 10 Hours </span>
+                                                                                                                        </p>
+
+
+
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=MTQ=" target="_blank">
+                                                                                                                                <img src="images/ds.jpg"  >
+
+
+                                                                                                                            </a>
+
+                                                                                                                            <h5 class="margin-bottom-10">Datascience using python </h5>
+
+                                                                                                                        </figure>
+                                                                                                                        <p ><span><i class="fa fa-clock-o"></i>10 Hours </span>
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=NQ==" target="_blank">
+                                                                                                                                <img src="images/ipr.jpg"  >
+
+
+                                                                                                                            </a>
+
+
+                                                                                                                            <h5 class="margin-bottom-10" style="align-content: center;">Intellectual Property Rights </h5>
+
+
+
+                                                                                                                        </figure>
+                                                                                                                        <p ><span><i class="fa fa-clock-o"></i> 10 Hours </span>
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+
+
+
+
+                                                                                                                    <div class="col-md-3 portfolio-item1 margin-bottom-40 " style="border-radius: 3px; height: 300px;box-shadow: 0 1px 6px rgba(31, 31, 31, 0.12), 0 1px 4px rgba(31, 31, 31, 0.12);">	
+
+
+                                                                                                                        <figure>
+
+                                                                                                                            <a href="audit.php?id=OQ==" target="_blank">
+                                                                                                                                <img src="images/doe.jpg"  >
+
+
+                                                                                                                            </a>
+                                                                                                                        </figure>
+
+                                                                                                                        <h5 class="margin-bottom-10" style="align-content: center;">Design of Experiment </h5>
+
+
+
+
+                                                                                                                        <p ><span><i class="fa fa-clock-o"></i> 10 Hours </span>
+                                                                                                                        </p>
+
+                                                                                                                    </div>
+
+
+
+
+                                                                                                                </div>
+                                                                                                            </div>
+
+
+                                                                                                            <!-- Carousel controls -->
+                                                                                                            <a class="left carousel-control" href="#carousel-audit" data-slide="prev">
+                                                                                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                                                                                <span class="sr-only">Previous</span>
+                                                                                                            </a>
+                                                                                                            <a class="right carousel-control" href="#carousel-audit" data-slide="next">
+                                                                                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                                                                                <span class="sr-only">Next</span>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+
+
+
+
+
+
+
+                                                                                            <!-- === VIRTUAL TOUR & TESTMONIAl SECTION === -->
+                                                                                            <div id="content" class="bottom-border-shadow" style="margin: 45px;" >
+                                                                                                <div class="container" style="background-color:#f6f6f6;">
+                                                                                                    <div class="row margin-vert-30">
+                                                                                                        <!-- Main Text -->
+                                                                                                        <!-- Testimonials - primary 1/2 width -->
+
+                                                                                                        <div class="col-md-6">
+                                                                                                            <!-- First Row-->
+                                                                                                            <div class="row margin-vert-5">
+                                                                                                                <div class="row col-md-12">
+                                                                                                                    <!-- Placement Box -->
+                                                                                                                    <div class="col-md-6" >
+                                                                                                                        <header>
+                                                                                                                            <h3><font style="border-bottom: 3px solid grey;">Placement</font></h3>
+                                                                                                                            <br />
+                                                                                                                            <table class="table" style="background-color: white;">
+                                                                                                                                <thead> <tr>
+                                                                                                                                        <th> <font color="black">Companies Visited</Font></th>
+                                                                                                                                        <th><font color="black">Students Selected</Font></th>
+                                                                                                                                    </tr></thead>
+                                                                                                                                <tbody>
+                                                                                                                                    <tr>
+                                                                                                                                        <td><font  color="#33747A">72</font></td>
+                                                                                                                                        <td><font  color="#33747A">323</font></td>
+                                                                                                                                    </tr>
+                                                                                                                                    <tr >
+                                                                                                                                        <td  colspan="2" align="right"> <a href="placement.php">More...</a></td>
+                                                                                                                                    </tr>
+                                                                                                                                </tbody>
+                                                                                                                            </table>
+                                                                                                                        </header>
+                                                                                                                    </div>
+                                                                                                                    <!-- End Placement Box -->
+                                                                                                                    <!-- Start Research Project Box -->
+                                                                                                                    <div class="col-md-6">
+                                                                                                                        <header>
+                                                                                                                            <h3><font style="border-bottom: 3px solid grey;">Research Project</font></h3>
+                                                                                                                            <br />
+                                                                                                                            <table class="table" style="background-color: white;">
+                                                                                                                                <thead> <tr>
+                                                                                                                                        <th><font color="black">Ongoing Research Project</font></th>
+                                                                                                                                        <th><font color="black">Amount</font></th>
+                                                                                                                                    </tr></thead>
+                                                                                                                                <tbody>
+                                                                                                                                    <tr colspan="">
+                                                                                                                                        <td><font  color="#33747A">6</font></td>
+                                                                                                                                        <td><font  color="#33747A">Rs. 10,664,000 </font></td>
+                                                                                                                                    </tr>
+                                                                                                                                    <tr>
+                                                                                                                                        <td colspan="2" align="right"> <a href="rd_project.php">More...</a></td>
+                                                                                                                                    </tr>
+                                                                                                                                </tbody>
+                                                                                                                            </table>
+                                                                                                                        </header>
+
+                                                                                                                    </div>
+                                                                                                                    <!-- End Research Project Box -->
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <!--End First Row-->
+                                                                                                            <!-- Second Row-->
+                                                                                                            <div class="row col-md-12">
+                                                                                                                <header>
+                                                                                                                    <h3><font style="border-bottom: 3px solid grey;">Testimonials</font></h3>
+                                                                                                                </header><br />
+                                                                                                                <div style="background-color: white;" class="carousel slide testimonials" id="testimonials3">
+                                                                                                                    <ol class="carousel-indicators">
+                                                                                                                        <li class="active" data-slide-to="0" data-target="#testimonials3">
+                                                                                                                        </li>
+                                                                                                                        <li data-slide-to="1" data-target="#testimonials3">
+                                                                                                                        </li>
+                                                                                                                        <li data-slide-to="2" data-target="#testimonials3">
+                                                                                                                        </li>
+                                                                                                                        <li data-slide-to="3" data-target="#testimonials3">
+                                                                                                                        </li>
+                                                                                                                        <li data-slide-to="4" data-target="#testimonials3">
+                                                                                                                        </li>
+                                                                                                                    </ol>
+                                                                                                                    <div class="carousel-inner">
+                                                                                                                        <div class="item active">
+                                                                                                                            <div class="testimonials-bg-primary col-md-12">
+                                                                                                                                <p>
+                                                                                                                                    "Thank you for such a hospitality and dialog on how we can collaborate to advance EE worldwide. Best of luck."
+                                                                                                                                </p>
+                                                                                                                                <div class="testimonial-info">
+                                                                                                                                    <img alt="" src="uploads/testimonial/bl.jpg" class="img-circle img-responsive" />
+                                                                                                                                    <span class="testimonial-author">
+                                                                                                                                        Blake Lloyd
+                                                                                                                                        <em>
+                                                                                                                                            IEEE IAS President.
+                                                                                                                                        </em>
+                                                                                                                                    </span>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="clearfix"></div>
+                                                                                                                        </div>
+                                                                                                                        <div class="item">
+                                                                                                                            <div class="testimonials-bg-primary col-md-12">
+                                                                                                                                <p>
+                                                                                                                                    "I am immensely impressed by the CVM and its education mission as well as impact on the society.
+                                                                                                                                    I admire the leadership of
+                                                                                                                                    Dr. C.L.Patel and faculty of GCET. I wish them the best in life of the institution and it's people."
+                                                                                                                                </p>
+                                                                                                                                <div class="testimonial-info">
+                                                                                                                                    <img alt="" src="uploads/testimonial/jnr.jpg" class="img-circle img-responsive" />
+                                                                                                                                    <span class="testimonial-author">
+                                                                                                                                        J.N. Reddy
+                                                                                                                                        <em>
+                                                                                                                                            Mechanical Engineering,Texas A&M University, USA.
+                                                                                                                                        </em>
+                                                                                                                                    </span>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="clearfix"></div>
+                                                                                                                        </div>
+                                                                                                                        <div class="item">
+                                                                                                                            <div class="testimonials-bg-primary col-md-12">
+                                                                                                                                <p>
+                                                                                                                                    "It is my pleasure to visit this lovely campus and I am impressed by the overall ambience."
+                                                                                                                                </p>
+                                                                                                                                <div class="testimonial-info">
+                                                                                                                                    <img alt="" src="uploads/testimonial/snm.jpg" class="img-circle img-responsive" />
+                                                                                                                                    <span class="testimonial-author">
+                                                                                                                                        S. N. Merchant
+                                                                                                                                        <em>
+                                                                                                                                            Department of Electrical Engineering, IIT Bombay, Powai.
+                                                                                                                                        </em>
+                                                                                                                                    </span>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="clearfix"></div>
+                                                                                                                        </div>
+                                                                                                                        <div class="item">
+                                                                                                                            <div class="testimonials-bg-primary col-md-12">
+                                                                                                                                <p>
+                                                                                                                                    "It is a good occasion to come to see how many of the students are working hard to reach their goals.
+                                                                                                                                    The faculty is assisting them effectively. The weather is far better than expected. Thanks for the mouth of mark."
+                                                                                                                                </p>
+                                                                                                                                <div class="testimonial-info">
+                                                                                                                                    <img alt="" src="uploads/testimonial/ta.jpg" class="img-circle img-responsive" />
+                                                                                                                                    <span class="testimonial-author">
+                                                                                                                                        Tohru ASAMI
+                                                                                                                                        <em>
+                                                                                                                                            Professor, Graduate School of Information and Technology, University of Tokyo.
+                                                                                                                                        </em>
+                                                                                                                                    </span>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="clearfix"></div>
+                                                                                                                        </div>
+                                                                                                                        <div class="item">
+                                                                                                                            <div class="testimonials-bg-primary col-md-12">
+                                                                                                                                <p>
+                                                                                                                                    "This is really a great experience to come to India. I realized I did not know about India. When I come back to Japan,
+                                                                                                                                    I will Study more about Indian history, culture, Hinduism, etc...As to the Research you might have an interesting field.
+                                                                                                                                    Field is very exciting for me.Hope that we will perform Field-Oriented ICT.
+                                                                                                                                    Great collaboration will be our future. We will come back again, and we will welcome all of you coming to Japan."
+                                                                                                                                </p>
+                                                                                                                                <div class="testimonial-info">
+                                                                                                                                    <img alt="" src="uploads/testimonial/hm.jpg" class="img-circle img-responsive" />
+                                                                                                                                    <span class="testimonial-author">
+                                                                                                                                        Hiroyuki Morikawa
+                                                                                                                                        <em>
+                                                                                                                                            Professor,Information and Communication Technology,The university of Tokyo,JAPAN
+                                                                                                                                        </em>
+                                                                                                                                    </span>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="clearfix"></div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="testimonials-arrows pull-right">
+                                                                                                                    <a class="left" href="#testimonials3" data-slide="prev">
+                                                                                                                        <span class="fa fa-arrow-left"></span>
+                                                                                                                    </a>
+                                                                                                                    <a class="right" href="#testimonials3" data-slide="next">
+                                                                                                                        <span class="fa fa-arrow-right"></span>
+                                                                                                                    </a>
+                                                                                                                    <div class="clearfix"></div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <!-- End Second Row-->
+                                                                                                        </div>
+                                                                                                        <!-- End Main Text -->
+                                                                                                        <!-- End Main Text -->
+                                                                                                        <div class="col-md-6">
+                                                                                                            <!--<h2 class="padding-vert-10">Virtual Tour</h2> -->
+                                                                                                            <header>
+                                                                                                                <h3><font style="border-bottom: 3px solid grey;">History of CVM</font></h3>
+                                                                                                            </header><br />
+                                                                                                            <iframe width="100%" height="390" src="https://www.youtube.com/embed/amLXDXkU0J8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- ===END VIRTUAL TOUR & TESTMONIAl SECTION === -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                            <!-- Portfolio -->
+                                                                                            <div class ="row">
+                                                                                                <div class="col-md-12" >
+                                                                                                    <div id="portfolio" class="bottom-border-shadow" >
+                                                                                                        <div class="container background-white bottom-border">
+                                                                                                            <div class="row padding-top-60 padding-bottom-60">
+                                                                                                                <ul id="portfolio-group1" class="portfolio-group">
+                                                                                                                    <!-- Portfolio Item -->
+                                                                                                                    <li class="portfolio-item col-sm-3 col-xs-6 col-md-2 margin-bottom-20">
+                                                                                                                        <h5>Institute Rank</h5>
+                                                                                                                        <a href="rank.php">
+                                                                                                                            <figure class="animate fadeInLeft"> <img alt="image1" src="assets/img/frontpage/1.jpg">
+
+                                                                                                                                </a> </li>
+                                                                                                                                <!-- //Portfolio Item// -->
+                                                                                                                                <!-- Portfolio Item -->
+                                                                                                                                <li class="portfolio-item col-sm-3 col-xs-6 col-md-2 margin-bottom-20">
+                                                                                                                                    <h5>Award and Achievement</h5>
+                                                                                                                                    <a href="achivement.php?year=MjAyMg==">
+                                                                                                                                        <figure class="animate fadeIn"> <img alt="image2" src="assets/img/frontpage/2.jpg">
+
+                                                                                                                                        </figure>
+                                                                                                                                    </a> </li>
+                                                                                                                                <!-- //Portfolio Item// -->
+                                                                                                                                <!-- Portfolio Item -->
+                                                                                                                                <li class="portfolio-item col-sm-3 col-xs-6 col-md-2 margin-bottom-20">
+                                                                                                                                    <h5>College Magazine</h5>
+                                                                                                                                    <a href="gcetmagazine26.php">
+                                                                                                                                        <figure class="animate fadeInRight"> <img alt="image3" src="assets/img/frontpage/6.jpg">
+
+                                                                                                                                        </figure>
+                                                                                                                                    </a> </li>
+                                                                                                                                <!-- //Portfolio Item// -->
+                                                                                                                                <!-- Portfolio Item -->
+                                                                                                                                <li class="portfolio-item col-sm-3 col-xs-6 col-md-2 margin-bottom-20">
+                                                                                                                                    <h5>GCET Brochure</h5>
+                                                                                                                                    <a href="gcetbrochure.php">
+                                                                                                                                        <figure class="animate fadeInRight"> <img alt="image6" src="assets/img/frontpage/3.jpg">
+
+                                                                                                                                        </figure>
+                                                                                                                                    </a> </li>
+                                                                                                                                <!-- //Portfolio Item// -->
+                                                                                                                                <!-- Portfolio Item -->
+                                                                                                                                <li class="portfolio-item col-sm-3 col-xs-6 col-md-2 margin-bottom-20">
+                                                                                                                                    <h5>Sports</h5>
+                                                                                                                                    <a href="sports_home.php">
+                                                                                                                                        <figure class="animate fadeInLeft"> <img alt="image4" src="assets/img/frontpage/4.jpg">
+
+                                                                                                                                        </figure>
+                                                                                                                                    </a> </li>
+                                                                                                                                <!-- //Portfolio Item// -->
+                                                                                                                                <!-- Portfolio Item -->
+                                                                                                                                <li class="portfolio-item col-sm-3 col-xs-6 col-md-2 margin-bottom-20">
+                                                                                                                                    <h5>Cultural</h5>
+                                                                                                                                    <a href="cultural_home.php">
+                                                                                                                                        <figure class="animate fadeIn"> <img alt="image5" src="assets/img/frontpage/5.jpg">
+
+                                                                                                                                        </figure>
+                                                                                                                                    </a> </li>
+                                                                                                                                <!-- //Portfolio Item// -->
+
+                                                                                                                                </ul>
+                                                                                                                                </div>
+
+                                                                                                                                </div>
+                                                                                                                                </div>
+                                                                                                                                </div>
+                                                                                                                                </div>
+                                                                                                                                </div>
+
+
+                                                                                                                                <!-- End Portfolio -->
+                                                                                                                                <!-- === END CONTENT === --> 
+
+                                                                                                                                <style>
+    .facebook {
+        background: #3B5998;
+        color: white;
+        padding: 6px;
+    }
+    div.associations {
+        text-align: center;
+    }
+
+
+    .twitter {
+        background: #55ACEE;
+        color: white;
+        padding: 6px;
+    }
+
+    .google {
+        background: #dd4b39;
+        color: white;
+        padding: 6px;
+    }
+
+    .linkedin {
+        background: #007bb5;
+        color: white;
+        padding: 6px;
+    }
+
+    .youtube {
+        background: #bb0000;
+        color: white;
+
+        padding: 6px;
+
+
+
+    }
+
+    .content {
+        margin-left: 75px;
+
+    }
+</style>
+<!-- Footer -->
+<div id="footer" class="background-grey">
+    <div class="container">
+        <div class="row" >
+        <div id="associations" class="col-md-4" style="padding-left:6%;">
+            <h3 id="ex1"><u style="color:white;">ASSOCIATIONS</u></h3>
+            <table style="width: 100%; text-align: left;">
+                <tr>
+                    <td>
+                        <a href="https://www.gcet.ac.in/admission_home.php"   > Admissions</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://www.gcet.ac.in/placement_home.php" target="_blank" >Placement</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/rd_home.php" >Research and Development</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://alumni.gcet.ac.in/" > Alumni </a></td>
+                </tr>
+                <tr>
+                    <td> <a href="https://www.gcet.ac.in/prof_society.php" > Professional Societies </a></td>
+                </tr>
+                <tr>
+                    <td>   <a href="https://www.gcet.ac.in/ssip_home.php?deptid=U1NJUA==" > Student Start-up and Innovation</a></td>
+                </tr>
+                <tr>
+                    <td>   <a href="https://www.gcet.ac.in/ie_home.php?deptid=SUU=" > Innovation and Entrepreneurship</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/audit_home.php" > Audit Courses</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/certificate_home.php" >Certifications Courses</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/gcetmagazine18.php" >College Magazine </a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/campus_library.php" >GCET Library </a></td>
+                </tr>
+            </table>
+        </div>
+   
+        <div id="clubs" class="col-md-3" >
+            <h3 id="ex1" ><u style="color:white;">Important Cells</u></h3>
+            <table style="width: 100%; text-align: left;">
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/grm.php" > Suggestion &amp; Grievance Redressal Cell </a></td>	
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/ps_home.php?deptid=V0RD" > Women's Development Cell </a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/ragging_home.php" >Anti-Ragging Cell</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.gcet.ac.in/scst_home.php" >ST - SC Cell</a></td>
+                </tr>
+            </table>
+            <br>
+            <h3 style="color:white;"><u>Contact Us</u></h3>
+            <p id="footercontentheader" >G H Patel College of Engineering & Technology<br/>
+                Bakrol Road <br />
+                Vallabh Vidyanagar, 388 120 <br />Dist: Anand(Gujarat) India <br />Telephone:
+                +91-2692-231651<br />
+                Email Id : principal@gcet.ac.in<br/>               </br>
+            </p>
+        </div>
+
+       <!-- <div id="clubs" class="col-md-3" >
+            <h3 style="color:white;"><u>Contact Us</u></h3>
+            <p id="footercontentheader" >G H Patel College of Engineering & Technology<br/>
+                Bakrol Road <br />
+                Vallabh Vidyanagar, 388 120 <br />Dist:-Anand(Gujarat) India <br />TEL:
+                +91-2692-231651<br />
+                Email Id : principal@gcet.ac.in<br/>               </br>
+            </p>
+        </div>-->
+        
+        <div id="clubs" class="col-md-5"  >
+             <h3 style="color:white;"><u>Virtual Tour</u></h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2sin!4v1483717585568!6m8!1m7!1sVxgebN-Tro0AAAQvOgb8zA!2m2!1d22.56008215854736!2d72.91971235872552!3f77.26!4f0!5f0.7820865974627469" width="100%" height="390" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+
+        
+        </div>
+        
+
+    </div>
+
+    <br>
+
+
+    <div class="row"> 
+        <!-- Copyright -->
+
+        <div id="copyright" class="col-sm-12">
+            <p align="center">Copyright &copy; 2017, All Rights Reserved. G. H. Patel College of Engineering &amp; Technology. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://www.facebook.com/GCETofficial/" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a> &nbsp;&nbsp;
+                <a href="https://twitter.com/GCET_Official" class="twitter" target="_blank" ><i class="fa fa-twitter"></i></a> &nbsp;&nbsp;
+                <a href="https://www.instagram.com/gcet_official/" class="google" target="_blank" ><i class="fa fa-instagram"></i></a> &nbsp;&nbsp;
+                <a href="https://www.linkedin.com/in/gcet-vallabh-vidyanagar-177aa31a0/" class="linkedin" target="_blank" ><i class="fa fa-linkedin"></i></a>&nbsp;&nbsp;
+                <a href="https://www.youtube.com/channel/UCWul6IdyjqSlYpG4NBAG0FA/featured?view_as=subscriber" class="youtube" target="_blank"><i class="fa fa-youtube"></i></a> 
+            </p>
+        </div>
+        <!-- End Copyright --> 
+    </div>
+</div>
+
+
+<!-- JS --> 
+<script src="assets/js/jquery.min.js"></script> 
+<script src="assets/js/bootstrap.min.js"></script> 
+<script src="assets/js/scripts.js"></script> 
+<!-- Isotope - Portfolio Sorting --> 
+<script src="assets/js/jquery.isotope.js"></script> 
+<!-- Mobile Menu - Slicknav --> 
+<script src="assets/js/jquery.slicknav.js"></script> 
+<!-- Animate on Scroll--> 
+<script src="assets/js/jquery.visible.js" charset="utf-8"></script> 
+<!-- Sticky Div --> 
+<script src="assets/js/jquery.sticky.js" charset="utf-8"></script> 
+<!-- Slimbox2--> 
+<script src="assets/js/slimbox2.js" charset="utf-8"></script> 
+<!-- Modernizr --> 
+<script src="assets/js/modernizr.custom.js"></script> 
+<!-- End JS -->                                                                                                                                <!-- End Footer -->
+
+
+
+                                                                                                                                </body>
+                                                                                                                                </html>
+                                                                                                                                <!-- === END FOOTER === -->     

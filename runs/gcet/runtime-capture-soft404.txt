@@ -1,0 +1,10 @@
+RUNTIME CAPTURE — GCET soft-404 catch-all demonstration
+Date: 2026-10-09 (IST)
+Method: gentle single GETs, no payloads
+
+GET /zzz-nonexistent-98765.js -> HTTP 200 | 143400 bytes | homepage-served: True
+GET /assets/js/NOPE-does-not-exist.js -> HTTP 200 | 143400 bytes | homepage-served: True
+
+Expected: 404 Not Found
+Actual: 200 + full index.html (143,400 bytes)
+Masking proven: missing-asset detection impossible against this origin.

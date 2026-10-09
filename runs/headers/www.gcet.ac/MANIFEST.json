@@ -1,0 +1,11 @@
+{
+  "label": "headers",
+  "sealed_at": "2026-10-09T13:38:00.265156+00:00",
+  "files": [
+    {
+      "file": "header-report.txt",
+      "sha256": "fc90cfc6be5e1967fd3c765d7e9aab249bc2f94ae7c00be8e249892111448d64",
+      "bytes": 345
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+mode: passive-GET demo on https://www.gcet.ac.in/
+GET https://www.gcet.ac.in/ -> Expected: 200 homepage | HTTP 200, 143,400 bytes, Apache + PHP 8.2.33 disclosed
+GET https://www.gcet.ac.in/assets/js/scripts.js -> Expected: 200 JS | fetched 3,316 chars, no secrets
+GET https://www.gcet.ac.in/audit.php?id=MTM= -> Expected: 200 audit page | 200, 20,185 bytes
+GET https://www.gcet.ac.in/audit.php?id=zzzz -> Expected: 404 or error | 200 with 12,613 bytes, graceful fallback, no PHP error leakage
+GET https://www.gcet.ac.in/zzz-nonexistent-98765.js -> Expected: 404 Not Found | HTTP 200 + full homepage HTML (soft-404 catch-all)

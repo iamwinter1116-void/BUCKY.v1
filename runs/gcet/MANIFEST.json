@@ -1,0 +1,76 @@
+{
+  "label": "run",
+  "sealed_at": "2026-10-09T13:40:33.478560+00:00",
+  "files": [
+    {
+      "file": "bootstrap.min.js",
+      "sha256": "36a326c783a12f72498d41fb32371da87fe0cbd1595248f3f154fd939f07f10c",
+      "bytes": 31824
+    },
+    {
+      "file": "index.html",
+      "sha256": "0355dd925bdae43591ccffeb1450d3be21ee7369e3ccdfc0c663cf02e284930f",
+      "bytes": 145111
+    },
+    {
+      "file": "jquery.isotope.js",
+      "sha256": "d943bbab47494d0756d56d8d915ccf8d27f072396fc482d4a7f51ded585c11d5",
+      "bytes": 150040
+    },
+    {
+      "file": "jquery.min.js",
+      "sha256": "ac1b82725819fba761d03c03a208214a9157bb026cc5e843d43105970407603a",
+      "bytes": 84284
+    },
+    {
+      "file": "jquery.min.map",
+      "sha256": "58473fa641bc95b6aeea484a88eec29f607fb581553532e792d8917143889656",
+      "bytes": 143400
+    },
+    {
+      "file": "jquery.slicknav.js",
+      "sha256": "ea9d214defd2f4a9b495711949798d3962c5dddba9e66ec09cb87aeb384caf4b",
+      "bytes": 15958
+    },
+    {
+      "file": "jquery.sticky.js",
+      "sha256": "297c6727cd35775361bae2c42710021d703249ce16bab0ef909477d9158eec20",
+      "bytes": 4377
+    },
+    {
+      "file": "jquery.visible.js",
+      "sha256": "c6e60f8601ee846c4b6c310219a2d16ec26818a91e2718bbe56ede619b089420",
+      "bytes": 3482
+    },
+    {
+      "file": "modernizr.custom.js",
+      "sha256": "7de288cdca611a1fe00742266cd18a0711da0e7bf5196458f6ab881a3b1eeaed",
+      "bytes": 9044
+    },
+    {
+      "file": "REPORT.md",
+      "sha256": "5995812235fbb66018305221024432d40ebd854b2e73b34f2465166824ef4549",
+      "bytes": 1802
+    },
+    {
+      "file": "runtime-capture-soft404.txt",
+      "sha256": "220859d926e2ba8817a049eef32473e9170cc6979c35619d43d76f27cae944dc",
+      "bytes": 443
+    },
+    {
+      "file": "scripts.js",
+      "sha256": "64267d4c4cafdd83bd2968535b11b51f50ca9f9eec65428068573b4e7c8ff007",
+      "bytes": 3442
+    },
+    {
+      "file": "slimbox2.js",
+      "sha256": "0de98a46b80ebf75d0a040b0788d41acdaeda732546992f0282f69fa76a75f2b",
+      "bytes": 4137
+    },
+    {
+      "file": "transcript.log",
+      "sha256": "90e3ff011aa853475711481501f170e9128aadf79c9d164e6ae55aed9401a067",
+      "bytes": 628
+    }
+  ]
+}
